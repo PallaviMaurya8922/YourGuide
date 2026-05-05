@@ -44,62 +44,75 @@ export default function App() {
   return (
     <div className="h-screen flex flex-col bg-[#F9FAFB] max-w-md mx-auto relative">
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto pb-20">
+      <div
+        className={`flex-1 overflow-y-auto ${currentScreen === 'guide-profile' ? 'pb-2' : 'pb-16'}`}
+      >
         {renderScreen()}
       </div>
 
       {/* Bottom Navigation */}
       {currentScreen !== 'guide-profile' && (
-        <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 px-4 py-3 safe-area-inset-bottom">
-          <div className="flex items-center justify-around">
+        <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto border-t border-gray-200 bg-white px-2 pb-[max(0.375rem,env(safe-area-inset-bottom))] pt-1.5">
+          <div className="flex items-stretch justify-between gap-0.5">
             <button
+              type="button"
               onClick={() => setCurrentScreen('home')}
-              className={`flex flex-col items-center gap-1 transition-colors ${
+              className={`flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg py-1 transition-colors active:bg-gray-50 ${
                 currentScreen === 'home' ? 'text-[#1E3A8A]' : 'text-[#6B7280]'
               }`}
             >
-              <Home className="w-6 h-6" />
-              <span className="text-xs">Home</span>
+              <Home className="size-[1.125rem] shrink-0" strokeWidth={currentScreen === 'home' ? 2.25 : 2} />
+              <span className="max-w-full truncate text-[10px] font-medium leading-none sm:text-[11px]">Home</span>
             </button>
 
             <button
+              type="button"
               onClick={() => setCurrentScreen('explore')}
-              className={`flex flex-col items-center gap-1 transition-colors ${
+              className={`flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg py-1 transition-colors active:bg-gray-50 ${
                 currentScreen === 'explore' ? 'text-[#1E3A8A]' : 'text-[#6B7280]'
               }`}
             >
-              <Compass className="w-6 h-6" />
-              <span className="text-xs">Explore</span>
+              <Compass className="size-[1.125rem] shrink-0" strokeWidth={currentScreen === 'explore' ? 2.25 : 2} />
+              <span className="max-w-full truncate text-[10px] font-medium leading-none sm:text-[11px]">
+                Explore
+              </span>
             </button>
 
             <button
+              type="button"
               onClick={() => setCurrentScreen('planner')}
-              className={`flex flex-col items-center gap-1 transition-colors ${
+              className={`flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg py-1 transition-colors active:bg-gray-50 ${
                 currentScreen === 'planner' ? 'text-[#1E3A8A]' : 'text-[#6B7280]'
               }`}
             >
-              <Calendar className="w-6 h-6" />
-              <span className="text-xs">Planner</span>
+              <Calendar className="size-[1.125rem] shrink-0" strokeWidth={currentScreen === 'planner' ? 2.25 : 2} />
+              <span className="max-w-full truncate text-[10px] font-medium leading-none sm:text-[11px]">
+                Planner
+              </span>
             </button>
 
             <button
+              type="button"
               onClick={() => setCurrentScreen('trips')}
-              className={`flex flex-col items-center gap-1 transition-colors ${
+              className={`flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg py-1 transition-colors active:bg-gray-50 ${
                 currentScreen === 'trips' ? 'text-[#1E3A8A]' : 'text-[#6B7280]'
               }`}
             >
-              <MapPin className="w-6 h-6" />
-              <span className="text-xs">Trips</span>
+              <MapPin className="size-[1.125rem] shrink-0" strokeWidth={currentScreen === 'trips' ? 2.25 : 2} />
+              <span className="max-w-full truncate text-[10px] font-medium leading-none sm:text-[11px]">Trips</span>
             </button>
 
             <button
+              type="button"
               onClick={() => setCurrentScreen('profile')}
-              className={`flex flex-col items-center gap-1 transition-colors ${
+              className={`flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg py-1 transition-colors active:bg-gray-50 ${
                 currentScreen === 'profile' ? 'text-[#1E3A8A]' : 'text-[#6B7280]'
               }`}
             >
-              <User className="w-6 h-6" />
-              <span className="text-xs">Profile</span>
+              <User className="size-[1.125rem] shrink-0" strokeWidth={currentScreen === 'profile' ? 2.25 : 2} />
+              <span className="max-w-full truncate text-[10px] font-medium leading-none sm:text-[11px]">
+                Profile
+              </span>
             </button>
           </div>
         </nav>

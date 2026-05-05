@@ -1,5 +1,6 @@
-import { Search, Star, Filter, ChevronDown, Shield } from 'lucide-react';
+import { Star, Filter, ChevronDown, Shield } from 'lucide-react';
 import { useState } from 'react';
+import { PillSearchInput } from '../components/commonComponents';
 
 interface ExplorePageProps {
   onGuideClick: (guideId: string) => void;
@@ -82,26 +83,25 @@ export default function ExplorePage({ onGuideClick }: ExplorePageProps) {
 
   return (
     <div className="min-h-full bg-white">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-5 pt-12 pb-6 rounded-b-3xl">
-        <div className="mb-4">
-          <h1 className="text-white text-2xl mb-1">Explore Guides</h1>
-          <p className="text-white/80 text-sm">Find verified local experts in Varanasi</p>
+      {/* Hero: compact on phones, a bit roomier on larger widths */}
+      <div className="rounded-b-2xl bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-4 pb-3 pt-[max(0.5rem,env(safe-area-inset-top))] sm:rounded-b-3xl sm:px-5 sm:pb-5 sm:pt-4">
+        <div className="mb-2 sm:mb-3">
+          <h1 className="text-lg font-semibold tracking-tight text-white sm:text-2xl">
+            Explore Guides
+          </h1>
+          <p className="mt-0.5 text-xs leading-snug text-white/85 sm:mt-1 sm:text-sm">
+            Verified experts in Varanasi
+          </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="bg-white rounded-full px-4 py-3 flex items-center gap-3 shadow-lg">
-          <Search className="w-5 h-5 text-[#6B7280]" />
-          <input
-            type="text"
-            placeholder="Search by name, language, expertise..."
-            className="flex-1 outline-none text-sm text-[#111827]"
-          />
-        </div>
+        <PillSearchInput
+          placeholder="Name, language, expertise…"
+          aria-label="Search guides"
+        />
       </div>
 
       {/* City Selector */}
-      <div className="px-5 py-4 border-b border-gray-200">
+      <div className="border-b border-gray-200 px-4 py-2.5 sm:px-5 sm:py-3">
         <button className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
             <span className="text-sm text-[#6B7280]">Showing guides in</span>
@@ -112,8 +112,8 @@ export default function ExplorePage({ onGuideClick }: ExplorePageProps) {
       </div>
 
       {/* Filters */}
-      <div className="px-5 py-4 border-b border-gray-200">
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+      <div className="border-b border-gray-200 px-4 py-2.5 sm:px-5 sm:py-3">
+        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1 sm:pb-2">
           {filterOptions.map((filter) => (
             <button
               key={filter.id}
@@ -142,12 +142,12 @@ export default function ExplorePage({ onGuideClick }: ExplorePageProps) {
       </div>
 
       {/* Results Count */}
-      <div className="px-5 py-3 bg-[#F9FAFB]">
+      <div className="bg-[#F9FAFB] px-4 py-2 sm:px-5 sm:py-2.5">
         <p className="text-sm text-[#6B7280]">{guides.length} verified guides available</p>
       </div>
 
       {/* Guide Cards */}
-      <div className="px-5 py-4 space-y-4 pb-8">
+      <div className="space-y-4 px-4 py-3 pb-8 sm:px-5 sm:py-4">
         {guides.map((guide) => (
           <div
             key={guide.id}
