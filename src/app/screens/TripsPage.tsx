@@ -1,5 +1,6 @@
 import { MapPin, Calendar, Clock, Plus, StickyNote, Check } from 'lucide-react';
 import { useState } from 'react';
+import { ScreenHero } from '../components/commonComponents';
 
 export default function TripsPage() {
   const [activeTab, setActiveTab] = useState<'graph' | 'saved'>('graph');
@@ -65,11 +66,11 @@ export default function TripsPage() {
 
   return (
     <div className="min-h-full bg-white">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-5 pt-12 pb-6 rounded-b-3xl">
-        <h1 className="text-white text-2xl mb-1">My Trips</h1>
-        <p className="text-white/80 text-sm">Track your journeys and saved plans</p>
-      </div>
+      <ScreenHero
+        className="rounded-b-3xl px-5 pb-6 pt-10 sm:pt-12"
+        title="My Trips"
+        subtitle="Track your journeys and saved plans"
+      />
 
       {/* Tabs */}
       <div className="px-5 py-4 border-b border-gray-200">

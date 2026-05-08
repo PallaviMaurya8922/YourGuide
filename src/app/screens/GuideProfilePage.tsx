@@ -1,5 +1,21 @@
-import { ArrowLeft, Star, MapPin, Languages, GraduationCap, Briefcase, Shield, Clock, Heart } from 'lucide-react';
+import {
+  ArrowLeft,
+  Briefcase,
+  GraduationCap,
+  Heart,
+  Languages,
+  MapPin,
+} from 'lucide-react';
 import { useState } from 'react';
+import {
+  CircleIconButton,
+  DetailListRow,
+  GradientPageHeader,
+  GuideProfileSummaryCard,
+  GuideReviewCard,
+  SectionTitle,
+  StickyBookingBar,
+} from '../components/commonComponents';
 
 interface GuideProfilePageProps {
   guideId: string;
@@ -26,7 +42,7 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
     bio: 'Passionate about sharing the rich cultural heritage of Varanasi. Born and raised in the holy city, I have deep knowledge of ancient temples, ghats, and local traditions.',
     specializations: ['Temple Tours', 'Ghat Walking', 'Historical Sites', 'Cultural Ceremonies'],
     availability: 'Available Today',
-    responseTime: '< 1 hour'
+    responseTime: '< 1 hour',
   };
 
   const reviews = [
@@ -35,220 +51,183 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
       name: 'Amit Patel',
       rating: 5,
       date: 'April 2026',
-      comment: 'Rajesh was an excellent guide! His knowledge of Varanasi\'s history is incredible. Highly recommended for first-time visitors.',
-      verified: true
+      comment:
+        "Rajesh was an excellent guide! His knowledge of Varanasi's history is incredible. Highly recommended for first-time visitors.",
+      verified: true,
     },
     {
       id: 2,
       name: 'Sarah Johnson',
       rating: 5,
       date: 'March 2026',
-      comment: 'Amazing experience! Rajesh showed us hidden gems that we would have never found on our own. Very professional and friendly.',
-      verified: true
+      comment:
+        'Amazing experience! Rajesh showed us hidden gems that we would have never found on our own. Very professional and friendly.',
+      verified: true,
     },
     {
       id: 3,
       name: 'Priya Sharma',
       rating: 4,
       date: 'March 2026',
-      comment: 'Good guide with excellent local knowledge. Would have preferred a bit more time at each location, but overall great experience.',
-      verified: true
-    }
+      comment:
+        'Good guide with excellent local knowledge. Would have preferred a bit more time at each location, but overall great experience.',
+      verified: true,
+    },
   ];
 
+  const pageBottomPad =
+    'pb-[calc(7.5rem+env(safe-area-inset-bottom))] sm:pb-[calc(8rem+env(safe-area-inset-bottom))]';
+
   return (
-    <div className="min-h-full bg-white">
-      {/* Header Image */}
-      <div className="relative bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] h-48">
-        <button
-          onClick={onBack}
-          className="absolute top-12 left-5 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white"
+    <div className={`min-h-full bg-[#F9FAFB] ${pageBottomPad}`}>
+      <GradientPageHeader
+        toolbar={
+          <>
+            <CircleIconButton icon={ArrowLeft} label="Go back" onClick={onBack} />
+            <CircleIconButton icon={Heart} label="Save guide to favorites" />
+          </>
+        }
+      />
+
+      {/* Explicit stacking so the summary card always paints above the gradient (fixes overlap glitches in scroll containers). */}
+      <div className="relative z-10 -mt-14 px-4 sm:-mt-[4.25rem] sm:px-6">
+        <GuideProfileSummaryCard
+          guide={{
+            name: guide.name,
+            image: guide.image,
+            expertise: guide.expertise,
+            verified: guide.verified,
+            rating: guide.rating,
+            reviews: guide.reviews,
+            totalTrips: guide.totalTrips,
+            availability: guide.availability,
+            responseTime: guide.responseTime,
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full space-y-6 px-4 pt-2 sm:space-y-8 sm:px-6 sm:pt-4">
+        <section>
+          <SectionTitle>About</SectionTitle>
+          <p className="text-sm leading-relaxed text-[#6B7280] sm:text-base">{guide.bio}</p>
+        </section>
+
+        <section>
+          <SectionTitle>Details</SectionTitle>
+          <div className="space-y-4 sm:space-y-5">
+            <DetailListRow
+              icon={Languages}
+              iconClassName="text-[#3B82F6]"
+              label="Languages"
+              value={guide.languages.join(', ')}
+            />
+            <DetailListRow
+              icon={MapPin}
+              iconClassName="text-[#F97316]"
+              label="Based in"
+              value={guide.city}
+            />
+            <DetailListRow
+              icon={GraduationCap}
+              iconClassName="text-[#10B981]"
+              label="Education"
+              value={guide.education}
+            />
+            <DetailListRow
+              icon={Briefcase}
+              iconClassName="text-[#6B7280]"
+              label="Experience"
+              value={guide.experience}
+            />
+          </div>
+        </section>
+
+        <section>
+          <SectionTitle>Specializations</SectionTitle>
+          <div className="flex flex-wrap gap-2">
+            {guide.specializations.map((spec) => (
+              <span
+                key={spec}
+                className="rounded-full bg-[#3B82F6]/10 px-3 py-2 text-sm text-[#1E3A8A] sm:px-4 sm:text-base"
+              >
+                {spec}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="pb-2">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <SectionTitle className="mb-0">Reviews ({guide.reviews})</SectionTitle>
+            <button
+              type="button"
+              className="text-sm font-medium text-[#3B82F6] hover:text-[#1c3578] sm:text-base"
+            >
+              See All
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            {reviews.map((review) => (
+              <GuideReviewCard
+                key={review.id}
+                name={review.name}
+                rating={review.rating}
+                date={review.date}
+                comment={review.comment}
+                verified={review.verified}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <StickyBookingBar
+        priceDisplay={<span>₹{guide.price}</span>}
+        actionLabel="Book Guide"
+        onAction={() => setShowBookingModal(true)}
+      />
+
+      {showBookingModal ? (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4"
+          role="presentation"
+          onClick={() => setShowBookingModal(false)}
         >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-
-        <button className="absolute top-12 right-5 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white">
-          <Heart className="w-5 h-5" />
-        </button>
-      </div>
-
-      {/* Profile Card */}
-      <div className="px-5 -mt-16 mb-6">
-        <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100">
-          <div className="flex gap-4 mb-4">
-            <div className="w-24 h-24 bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] rounded-2xl flex items-center justify-center text-5xl flex-shrink-0 border-4 border-white shadow-lg">
-              {guide.image}
-            </div>
-
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h1 className="text-xl text-[#111827]">{guide.name}</h1>
-                {guide.verified && (
-                  <Shield className="w-5 h-5 text-[#10B981]" />
-                )}
-              </div>
-
-              <p className="text-sm text-[#6B7280] mb-2">{guide.expertise}</p>
-
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1">
-                  <Star className="w-5 h-5 text-[#F97316] fill-[#F97316]" />
-                  <span className="text-base text-[#111827]">{guide.rating}</span>
-                </div>
-                <span className="text-sm text-[#6B7280]">({guide.reviews} reviews)</span>
-                <span className="text-sm text-[#6B7280]">• {guide.totalTrips} trips</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#10B981]/10 rounded-xl px-3 py-2">
-              <p className="text-xs text-[#10B981] mb-0.5">Availability</p>
-              <p className="text-sm text-[#111827]">{guide.availability}</p>
-            </div>
-            <div className="bg-[#3B82F6]/10 rounded-xl px-3 py-2">
-              <p className="text-xs text-[#3B82F6] mb-0.5">Response Time</p>
-              <p className="text-sm text-[#111827]">{guide.responseTime}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* About */}
-      <div className="px-5 mb-6">
-        <h2 className="text-base text-[#111827] mb-3">About</h2>
-        <p className="text-sm text-[#6B7280] leading-relaxed">{guide.bio}</p>
-      </div>
-
-      {/* Details */}
-      <div className="px-5 mb-6">
-        <h2 className="text-base text-[#111827] mb-3">Details</h2>
-
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F9FAFB] rounded-xl flex items-center justify-center">
-              <Languages className="w-5 h-5 text-[#3B82F6]" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs text-[#6B7280] mb-0.5">Languages</p>
-              <p className="text-sm text-[#111827]">{guide.languages.join(', ')}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F9FAFB] rounded-xl flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-[#F97316]" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs text-[#6B7280] mb-0.5">Based in</p>
-              <p className="text-sm text-[#111827]">{guide.city}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F9FAFB] rounded-xl flex items-center justify-center">
-              <GraduationCap className="w-5 h-5 text-[#10B981]" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs text-[#6B7280] mb-0.5">Education</p>
-              <p className="text-sm text-[#111827]">{guide.education}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F9FAFB] rounded-xl flex items-center justify-center">
-              <Briefcase className="w-5 h-5 text-[#6B7280]" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs text-[#6B7280] mb-0.5">Experience</p>
-              <p className="text-sm text-[#111827]">{guide.experience}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Specializations */}
-      <div className="px-5 mb-6">
-        <h2 className="text-base text-[#111827] mb-3">Specializations</h2>
-        <div className="flex flex-wrap gap-2">
-          {guide.specializations.map((spec) => (
-            <span key={spec} className="bg-[#3B82F6]/10 text-[#1E3A8A] px-3 py-2 rounded-full text-sm">
-              {spec}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Reviews */}
-      <div className="px-5 mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base text-[#111827]">Reviews ({guide.reviews})</h2>
-          <button className="text-sm text-[#3B82F6]">See All</button>
-        </div>
-
-        <div className="space-y-4">
-          {reviews.map((review) => (
-            <div key={review.id} className="bg-[#F9FAFB] rounded-2xl p-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] rounded-full" />
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <p className="text-sm text-[#111827]">{review.name}</p>
-                      {review.verified && (
-                        <Shield className="w-3 h-3 text-[#10B981]" />
-                      )}
-                    </div>
-                    <p className="text-xs text-[#6B7280]">{review.date}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-[#F97316] fill-[#F97316]" />
-                  <span className="text-sm text-[#111827]">{review.rating}</span>
-                </div>
-              </div>
-              <p className="text-sm text-[#6B7280]">{review.comment}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Sticky Booking Bar */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 px-5 py-4 safe-area-inset-bottom">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <p className="text-xs text-[#6B7280]">Hourly Rate</p>
-            <p className="text-2xl text-[#1E3A8A]">₹{guide.price}</p>
-          </div>
-          <button
-            onClick={() => setShowBookingModal(true)}
-            className="bg-[#1E3A8A] text-white px-8 py-3 rounded-full hover:bg-[#1E3A8A]/90 transition-all"
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="booking-modal-title"
+            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-white p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-xl sm:rounded-3xl"
+            onClick={(e) => e.stopPropagation()}
           >
-            Book Guide
-          </button>
-        </div>
-      </div>
+            <div className="mb-6 h-1 w-12 rounded-full bg-gray-300 mx-auto sm:hidden" />
 
-      {/* Booking Modal */}
-      {showBookingModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-50 max-w-md mx-auto">
-          <div className="bg-white rounded-t-3xl w-full p-6 safe-area-inset-bottom">
-            <div className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6" />
+            <h2 id="booking-modal-title" className="mb-4 text-xl font-semibold text-[#111827]">
+              Request Booking
+            </h2>
 
-            <h2 className="text-xl text-[#111827] mb-4">Request Booking</h2>
-
-            <div className="space-y-4 mb-6">
+            <div className="mb-6 space-y-4">
               <div>
-                <label className="text-sm text-[#6B7280] mb-2 block">Select Date</label>
+                <label htmlFor="booking-date" className="mb-2 block text-sm text-[#6B7280]">
+                  Select Date
+                </label>
                 <input
+                  id="booking-date"
                   type="date"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm"
                 />
               </div>
 
               <div>
-                <label className="text-sm text-[#6B7280] mb-2 block">Duration (hours)</label>
-                <select className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm">
+                <label htmlFor="booking-duration" className="mb-2 block text-sm text-[#6B7280]">
+                  Duration (hours)
+                </label>
+                <select
+                  id="booking-duration"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm"
+                  defaultValue="2 hours"
+                >
                   <option>2 hours</option>
                   <option>4 hours</option>
                   <option>6 hours</option>
@@ -257,31 +236,36 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
               </div>
 
               <div>
-                <label className="text-sm text-[#6B7280] mb-2 block">Special Requests (Optional)</label>
+                <label htmlFor="booking-notes" className="mb-2 block text-sm text-[#6B7280]">
+                  Special Requests (Optional)
+                </label>
                 <textarea
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm h-24 resize-none"
+                  id="booking-notes"
+                  className="h-24 w-full resize-none rounded-xl border border-gray-200 px-4 py-3 text-sm"
                   placeholder="Any specific requirements or preferences..."
                 />
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
               <button
+                type="button"
                 onClick={() => setShowBookingModal(false)}
-                className="flex-1 border border-gray-200 text-[#6B7280] py-3 rounded-full"
+                className="min-h-[44px] flex-1 rounded-full border border-gray-200 py-3 text-[#6B7280] transition-colors hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
+                type="button"
                 onClick={() => setShowBookingModal(false)}
-                className="flex-1 bg-[#1E3A8A] text-white py-3 rounded-full"
+                className="min-h-[44px] flex-1 rounded-full bg-[#1E3A8A] py-3 text-white transition-colors hover:bg-[#1c3578]"
               >
                 Send Request
               </button>
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

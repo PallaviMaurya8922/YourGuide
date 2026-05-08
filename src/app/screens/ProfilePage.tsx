@@ -1,4 +1,5 @@
 import { User, MapPin, Star, Calendar, Heart, Settings, Bell, HelpCircle, LogOut, ChevronRight, Shield } from 'lucide-react';
+import { GuideRowCard, PromoCalloutCard, ScreenHero } from '../components/commonComponents';
 
 export default function ProfilePage() {
   const user = {
@@ -45,11 +46,11 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-full bg-white pb-8">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-5 pt-12 pb-20 rounded-b-3xl">
-        <h1 className="text-white text-2xl mb-1">Profile</h1>
-        <p className="text-white/80 text-sm">Manage your account and preferences</p>
-      </div>
+      <ScreenHero
+        className="rounded-b-3xl px-5 pb-16 pt-10 sm:pb-20 sm:pt-12"
+        title="Profile"
+        subtitle="Manage your account and preferences"
+      />
 
       {/* Profile Card */}
       <div className="px-5 -mt-12 mb-6">
@@ -99,24 +100,14 @@ export default function ProfilePage() {
 
         <div className="space-y-3">
           {savedGuides.map((guide) => (
-            <div key={guide.id} className="bg-white border border-gray-200 rounded-2xl p-4 flex items-center gap-3 hover:border-[#3B82F6] transition-all">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
-                {guide.image}
-              </div>
-
-              <div className="flex-1">
-                <h4 className="text-sm text-[#111827] mb-0.5">{guide.name}</h4>
-                <div className="flex items-center gap-2 text-xs text-[#6B7280]">
-                  <MapPin className="w-3 h-3" />
-                  <span>{guide.city}</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-[#F97316] fill-[#F97316]" />
-                <span className="text-sm text-[#111827]">{guide.rating}</span>
-              </div>
-            </div>
+            <GuideRowCard
+              key={guide.id}
+              variant="simple"
+              name={guide.name}
+              image={guide.image}
+              rating={guide.rating}
+              city={guide.city}
+            />
           ))}
         </div>
       </div>
@@ -155,15 +146,12 @@ export default function ProfilePage() {
         </div>
       ))}
 
-      {/* Become a Guide */}
-      <div className="px-5 mb-6">
-        <div className="bg-gradient-to-r from-[#F97316] to-[#FB923C] rounded-2xl p-5 text-white">
-          <h3 className="text-lg mb-2">Become a Guide</h3>
-          <p className="text-white/90 text-sm mb-4">Share your local knowledge and earn money by guiding travelers</p>
-          <button className="bg-white text-[#F97316] px-6 py-2.5 rounded-full text-sm">
-            Apply Now
-          </button>
-        </div>
+      <div className="mb-6 px-5">
+        <PromoCalloutCard
+          title="Become a Guide"
+          description="Share your local knowledge and earn money by guiding travelers"
+          actionLabel="Apply Now"
+        />
       </div>
 
       {/* Logout */}
