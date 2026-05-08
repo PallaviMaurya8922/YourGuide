@@ -27,23 +27,13 @@ export function GuideExploreCard({ guide, onSelect, className }: GuideExploreCar
   return (
     <article
       className={cn(
-        'cursor-pointer rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] hover:shadow-lg',
+        'rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] hover:shadow-lg',
+        interactive && 'cursor-pointer',
         !interactive && 'cursor-default hover:border-gray-200 hover:shadow-none',
         className,
       )}
       onClick={interactive ? () => onSelect?.(guide.id) : undefined}
-      onKeyDown={
-        interactive
-          ? (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                onSelect?.(guide.id);
-              }
-            }
-          : undefined
-      }
-      tabIndex={interactive ? 0 : undefined}
-      role={interactive ? 'button' : undefined}
+      aria-label={interactive ? `Open guide: ${guide.name}` : undefined}
     >
       <div className="mb-3 flex gap-4">
         <GuideAvatar image={guide.image} size="lg" />
