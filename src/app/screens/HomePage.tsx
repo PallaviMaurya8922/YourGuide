@@ -6,9 +6,10 @@ import {
   ScreenHero,
   SectionHeaderRow,
 } from '../components/commonComponents';
+import { PAGE_PAD_X } from '../shellLayout';
 
 interface HomePageProps {
-  onNavigate: (screen: 'home' | 'explore' | 'planner' | 'trips' | 'profile') => void;
+  onNavigate: (screen: 'home' | 'explore' | 'planner' | 'trips' | 'expenses' | 'profile') => void;
   onGuideClick: (guideId: string) => void;
 }
 
@@ -62,10 +63,11 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
   return (
     <div className="min-h-full bg-white">
       <ScreenHero
-        className="px-5 pb-6 pt-10 sm:pb-8 sm:pt-12"
+        className="pt-10 pb-6 sm:pb-8 sm:pt-12"
         title="Hello, Jitendra 👋"
         subtitle="Where do you want to explore today?"
         titleSpacing="comfortable"
+        hideTitleFromLg
       >
         <PillSearchInput
           placeholder="Search cities, guides, or places..."
@@ -74,7 +76,7 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         />
       </ScreenHero>
 
-      <div className="px-5 py-6">
+      <div className={`${PAGE_PAD_X} py-6`}>
         <SectionHeaderRow
           title="Popular Cities"
           action={
@@ -84,12 +86,12 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
           }
         />
 
-        <div className="no-scrollbar flex gap-3 overflow-x-auto pb-2">
+        <div className="no-scrollbar flex gap-3 overflow-x-auto pb-2 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible md:pb-0">
           {popularCities.map((city) => (
-            <div key={city.name} className="w-32 shrink-0">
-              <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-[#F9FAFB] to-white p-4 text-center">
-                <div className="mb-2 text-4xl">{city.image}</div>
-                <h3 className="mb-1 text-sm text-[#111827]">{city.name}</h3>
+            <div key={city.name} className="w-32 shrink-0 md:w-auto md:min-w-0">
+              <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-[#F9FAFB] to-white p-4 text-center md:p-5">
+                <div className="mb-2 text-4xl md:text-5xl">{city.image}</div>
+                <h3 className="mb-1 text-sm text-[#111827] md:text-base">{city.name}</h3>
                 <p className="text-xs text-[#6B7280]">{city.trips} trips</p>
               </div>
             </div>
@@ -97,7 +99,7 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         </div>
       </div>
 
-      <div className="mb-6 px-5">
+      <div className={`mb-6 ${PAGE_PAD_X}`}>
         <PromoCalloutCard
           title="Book a Local Guide"
           description="Explore like a local with verified experts"
@@ -107,59 +109,59 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         />
       </div>
 
-      <div className="mb-6 px-5">
-        <h2 className="mb-4 text-lg text-[#111827]">Quick Actions</h2>
+      <div className={`mb-6 ${PAGE_PAD_X}`}>
+        <h2 className="mb-4 text-lg text-[#111827] md:text-xl">Quick Actions</h2>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
           <button
             type="button"
             onClick={() => onNavigate('explore')}
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6]"
+            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] md:p-5"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B82F6]/10">
-              <Users className="h-5 w-5 text-[#3B82F6]" />
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B82F6]/10 md:h-12 md:w-12">
+              <Users className="h-5 w-5 text-[#3B82F6] md:h-6 md:w-6" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827]">Book Guide</h3>
+            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Book Guide</h3>
             <p className="text-xs text-[#6B7280]">Find local experts</p>
           </button>
 
           <button
             type="button"
             onClick={() => onNavigate('planner')}
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6]"
+            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] md:p-5"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#10B981]/10">
-              <Calendar className="h-5 w-5 text-[#10B981]" />
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#10B981]/10 md:h-12 md:w-12">
+              <Calendar className="h-5 w-5 text-[#10B981] md:h-6 md:w-6" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827]">Plan Trip</h3>
+            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Plan Trip</h3>
             <p className="text-xs text-[#6B7280]">Smart itineraries</p>
           </button>
 
           <button
             type="button"
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6]"
+            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] md:p-5"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F97316]/10">
-              <MapPin className="h-5 w-5 text-[#F97316]" />
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F97316]/10 md:h-12 md:w-12">
+              <MapPin className="h-5 w-5 text-[#F97316] md:h-6 md:w-6" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827]">Explore Nearby</h3>
+            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Explore Nearby</h3>
             <p className="text-xs text-[#6B7280]">Discover places</p>
           </button>
 
           <button
             type="button"
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 opacity-50 transition-all hover:border-[#3B82F6]"
+            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 opacity-50 transition-all hover:border-[#3B82F6] md:p-5"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6B7280]/10">
-              <Headphones className="h-5 w-5 text-[#6B7280]" />
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6B7280]/10 md:h-12 md:w-12">
+              <Headphones className="h-5 w-5 text-[#6B7280] md:h-6 md:w-6" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827]">Audio Guide</h3>
+            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Audio Guide</h3>
             <p className="text-xs text-[#6B7280]">Coming soon</p>
           </button>
         </div>
       </div>
 
-      <div className="mb-6 px-5">
+      <div className={`mb-6 ${PAGE_PAD_X}`}>
         <SectionHeaderRow
           title="Recommended Guides"
           action={
@@ -173,7 +175,7 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
           }
         />
 
-        <div className="space-y-3">
+        <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
           {recommendedGuides.map((guide) => (
             <GuideRowCard
               key={guide.id}
@@ -191,10 +193,10 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         </div>
       </div>
 
-      <div className="px-5 pb-8">
+      <div className={`${PAGE_PAD_X} pb-8`}>
         <SectionHeaderRow title="Trending Places" />
 
-        <div className="space-y-3">
+        <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
           {trendingPlaces.map((place) => (
             <div
               key={place.name}

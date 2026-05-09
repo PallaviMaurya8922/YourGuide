@@ -21,7 +21,9 @@ export function GradientPageHeader({ toolbar, className }: GradientPageHeaderPro
         className,
       )}
     >
-      <div className="flex items-start justify-between gap-3 px-4 sm:px-6">{toolbar}</div>
+      <div className="flex items-start justify-between gap-3 px-4 sm:px-6 md:px-8 lg:px-10">
+        {toolbar}
+      </div>
     </header>
   );
 }

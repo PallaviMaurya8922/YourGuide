@@ -4,10 +4,14 @@ import {
   ChevronRight,
   Clock,
   Navigation,
+  ReceiptIndianRupee,
   Sparkles,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
+import type { CreateTripInput } from '../context/TripExpensesContext';
+import { PLANNER_ITINERARY_RESUME_KEY } from '../plannerItineraryResume';
 import { ScreenHero } from '../components/commonComponents';
+import { PAGE_PAD_X } from '../shellLayout';
 
 type BudgetId = 'budget' | 'moderate' | 'luxury';
 
@@ -18,12 +22,60 @@ const BUDGET_OPTIONS: { id: BudgetId; label: string; icon: string }[] = [
   { id: 'luxury', label: 'Luxury', icon: '✨' },
 ];
 
-export default function PlannerPage() {
+export type PlannerPageProps = {
+  onNavigateToSplit?: (plan: CreateTripInput) => void;
+};
+
+export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
   const [plannerState, setPlannerState] = useState<'input' | 'result'>('input');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedDays, setSelectedDays] = useState('3');
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedBudget, setSelectedBudget] = useState<BudgetId | null>(null);
+
+  useLayoutEffect(() => {
+    let raw: string | null = null;
+    try {
+      raw = sessionStorage.getItem(PLANNER_ITINERARY_RESUME_KEY);
+    } catch {
+      return;
+    }
+    if (!raw) return;
+    try {
+      sessionStorage.removeItem(PLANNER_ITINERARY_RESUME_KEY);
+    } catch {
+      // ignore
+    }
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      return;
+    }
+    if (!parsed || typeof parsed !== 'object') return;
+    const snap = parsed as Record<string, unknown>;
+    const city = typeof snap.city === 'string' ? snap.city : '';
+    const daysRaw = snap.days;
+    const days =
+      typeof daysRaw === 'string'
+        ? daysRaw
+        : typeof daysRaw === 'number' && Number.isFinite(daysRaw)
+          ? String(daysRaw)
+          : '3';
+    const interestsRaw = snap.interests;
+    const interests = Array.isArray(interestsRaw)
+      ? interestsRaw.filter((i): i is string => typeof i === 'string')
+      : [];
+    const b = snap.budget;
+    const budget: BudgetId | null =
+      b === 'budget' || b === 'moderate' || b === 'luxury' ? b : null;
+    if (!city || !budget) return;
+    setSelectedCity(city);
+    setSelectedDays(days);
+    setSelectedInterests(interests);
+    setSelectedBudget(budget);
+    setPlannerState('result');
+  }, []);
 
   const interests = [
     { id: 'temples', label: 'Temples', icon: '🛕' },
@@ -90,10 +142,14 @@ export default function PlannerPage() {
     ? BUDGET_OPTIONS.find((b) => b.id === selectedBudget)?.label ?? ''
     : '';
 
+  const displayCity = selectedCity || itinerary.city;
+  const displayDays = Number.parseInt(selectedDays, 10);
+  const daysLabel = Number.isFinite(displayDays) && displayDays > 0 ? displayDays : itinerary.days;
+
   if (plannerState === 'result') {
     return (
       <div className="min-h-full bg-[#F3F4F6] pb-10">
-        <header className="relative overflow-hidden rounded-b-[1.75rem] bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-4 pb-8 pt-[max(0.75rem,env(safe-area-inset-top))] text-white sm:px-5 sm:pb-10">
+        <header className="relative overflow-hidden rounded-b-[1.75rem] bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-4 pb-8 pt-[max(0.75rem,env(safe-area-inset-top))] text-white sm:px-5 sm:pb-10 md:px-8 lg:px-10">
           <button
             type="button"
             onClick={() => setPlannerState('input')}
@@ -109,7 +165,8 @@ export default function PlannerPage() {
             <div className="min-w-0 flex-1">
               <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">Your itinerary</h1>
               <p className="mt-1 text-sm text-white/85">
-                {itinerary.city} · {itinerary.days} days · {itinerary.totalPlaces} stops
+                {displayCity} · {daysLabel} {daysLabel === 1 ? 'day' : 'days'} · {itinerary.totalPlaces}{' '}
+                stops
               </p>
               {budgetLabel ? (
                 <p className="mt-2 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white/95">
@@ -120,7 +177,7 @@ export default function PlannerPage() {
           </div>
         </header>
 
-        <div className="relative z-10 -mt-4 space-y-4 px-4 sm:px-5">
+        <div className={`relative z-10 -mt-4 space-y-4 ${PAGE_PAD_X}`}>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-2">
             <button
               type="button"
@@ -134,6 +191,27 @@ export default function PlannerPage() {
             >
               Edit plan
             </button>
+            {onNavigateToSplit && selectedBudget ? (
+              <button
+                type="button"
+                onClick={() =>
+                  onNavigateToSplit({
+                    name: `${displayCity} · ${daysLabel}-day plan`,
+                    subtitle: `${itinerary.totalPlaces} stops · add friends on Split`,
+                    plannerSnapshot: {
+                      city: displayCity,
+                      days: String(daysLabel),
+                      interests: [...selectedInterests],
+                      budget: selectedBudget,
+                    },
+                  })
+                }
+                className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-4 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/25 sm:min-w-0 sm:flex-none"
+              >
+                <ReceiptIndianRupee className="size-4 shrink-0" aria-hidden />
+                Split expenses
+              </button>
+            ) : null}
             <button
               type="button"
               className="min-h-[44px] flex-1 rounded-full bg-[#1E3A8A] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-w-0 sm:flex-none"
@@ -142,7 +220,7 @@ export default function PlannerPage() {
             </button>
           </div>
 
-          <div className="space-y-5 sm:space-y-6">
+          <div className="space-y-5 sm:space-y-6 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
             {itinerary.schedule.map((day) => (
               <section
                 key={day.day}
@@ -238,15 +316,16 @@ export default function PlannerPage() {
   return (
     <div className="min-h-full bg-white pb-10">
       <ScreenHero
-        className="mb-6 rounded-b-3xl px-5 pb-6 pt-[max(3rem,env(safe-area-inset-top))]"
+        className="mb-6 rounded-b-3xl pb-6 pt-[max(3rem,env(safe-area-inset-top))]"
         title="Plan Your Trip"
         subtitle="Create a smart itinerary in minutes"
+        hideTitleFromLg
       />
 
-      <div className="space-y-6 px-5">
+      <div className={`space-y-6 ${PAGE_PAD_X}`}>
         <div>
           <label className="mb-3 block text-sm text-[#111827]">Select City</label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
             {['Varanasi', 'Ayodhya', 'Agra', 'Jaipur'].map((city) => (
               <button
                 key={city}
@@ -269,13 +348,13 @@ export default function PlannerPage() {
 
         <div>
           <label className="mb-3 block text-sm text-[#111827]">Number of Days</label>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {['1', '2', '3', '4', '5'].map((day) => (
               <button
                 key={day}
                 type="button"
                 onClick={() => setSelectedDays(day)}
-                className={`min-h-[44px] flex-1 rounded-xl border py-3 text-sm transition-all ${
+                className={`min-h-[44px] min-w-[2.75rem] flex-1 rounded-xl border py-3 text-sm transition-all sm:min-w-0 ${
                   selectedDays === day
                     ? 'border-[#3B82F6] bg-[#3B82F6]/5 text-[#3B82F6]'
                     : 'border-gray-200 text-[#6B7280] hover:border-gray-300'

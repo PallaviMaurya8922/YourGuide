@@ -16,6 +16,7 @@ import {
   SectionTitle,
   StickyBookingBar,
 } from '../components/commonComponents';
+import { PAGE_PAD_X } from '../shellLayout';
 
 interface GuideProfilePageProps {
   guideId: string;
@@ -90,7 +91,7 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
       />
 
       {/* Explicit stacking so the summary card always paints above the gradient (fixes overlap glitches in scroll containers). */}
-      <div className="relative z-10 -mt-14 px-4 sm:-mt-[4.25rem] sm:px-6">
+      <div className={`relative z-10 -mt-14 sm:-mt-[4.25rem] ${PAGE_PAD_X}`}>
         <GuideProfileSummaryCard
           guide={{
             name: guide.name,
@@ -106,7 +107,8 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full space-y-6 px-4 pt-2 sm:space-y-8 sm:px-6 sm:pt-4">
+      <div className="relative z-10 mx-auto w-full max-w-3xl space-y-6 pt-2 sm:space-y-8 sm:pt-4 lg:max-w-4xl xl:max-w-5xl">
+        <div className={`space-y-6 sm:space-y-8 ${PAGE_PAD_X}`}>
         <section>
           <SectionTitle>About</SectionTitle>
           <p className="text-sm leading-relaxed text-[#6B7280] sm:text-base">{guide.bio}</p>
@@ -167,7 +169,7 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
             </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-5">
             {reviews.map((review) => (
               <GuideReviewCard
                 key={review.id}
@@ -180,6 +182,7 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
             ))}
           </div>
         </section>
+        </div>
       </div>
 
       <StickyBookingBar
@@ -198,7 +201,7 @@ export default function GuideProfilePage({ guideId, onBack }: GuideProfilePagePr
             role="dialog"
             aria-modal="true"
             aria-labelledby="booking-modal-title"
-            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-white p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-xl sm:rounded-3xl"
+            className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-white p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-xl sm:rounded-3xl md:max-w-lg lg:max-w-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-6 h-1 w-12 rounded-full bg-gray-300 mx-auto sm:hidden" />

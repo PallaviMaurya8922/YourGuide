@@ -1,5 +1,6 @@
 import { User, MapPin, Star, Calendar, Heart, Settings, Bell, HelpCircle, LogOut, ChevronRight, Shield } from 'lucide-react';
 import { GuideRowCard, PromoCalloutCard, ScreenHero } from '../components/commonComponents';
+import { PAGE_PAD_X } from '../shellLayout';
 
 export default function ProfilePage() {
   const user = {
@@ -47,22 +48,22 @@ export default function ProfilePage() {
   return (
     <div className="min-h-full bg-white pb-8">
       <ScreenHero
-        className="rounded-b-3xl px-5 pb-16 pt-10 sm:pb-20 sm:pt-12"
+        className="rounded-b-3xl pb-16 pt-10 sm:pb-20 sm:pt-12"
         title="Profile"
         subtitle="Manage your account and preferences"
+        hideTitleFromLg
       />
 
-      {/* Profile Card */}
-      <div className="px-5 -mt-12 mb-6">
-        <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100">
-          <div className="flex items-center gap-4 mb-4">
+      <div className={`-mt-12 mb-6 ${PAGE_PAD_X}`}>
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-lg md:p-6">
+          <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row sm:items-start">
             <div className="w-20 h-20 bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] rounded-2xl flex items-center justify-center text-4xl flex-shrink-0">
               {user.image}
             </div>
 
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-lg text-[#111827]">{user.name}</h2>
+            <div className="min-w-0 flex-1 text-center sm:text-left">
+              <div className="mb-1 flex items-center justify-center gap-2 sm:justify-start">
+                <h2 className="text-lg text-[#111827] md:text-xl">{user.name}</h2>
                 {user.verified && (
                   <Shield className="w-4 h-4 text-[#10B981]" />
                 )}
@@ -78,27 +79,25 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="px-5 mb-6">
-        <div className="grid grid-cols-4 gap-3">
+      <div className={`mb-6 ${PAGE_PAD_X}`}>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="bg-[#F9FAFB] rounded-xl p-3 text-center">
-              <stat.icon className="w-5 h-5 text-[#3B82F6] mx-auto mb-1" />
-              <p className="text-lg text-[#111827] mb-0.5">{stat.value}</p>
-              <p className="text-xs text-[#6B7280] leading-tight">{stat.label}</p>
+            <div key={stat.label} className="rounded-xl bg-[#F9FAFB] p-3 text-center md:p-4">
+              <stat.icon className="mx-auto mb-1 h-5 w-5 text-[#3B82F6] md:h-6 md:w-6" />
+              <p className="mb-0.5 text-lg text-[#111827] md:text-xl">{stat.value}</p>
+              <p className="text-xs leading-tight text-[#6B7280] md:text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Saved Guides */}
-      <div className="px-5 mb-6">
+      <div className={`mb-6 ${PAGE_PAD_X}`}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-base text-[#111827]">Saved Guides</h3>
           <button className="text-sm text-[#3B82F6]">See All</button>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
           {savedGuides.map((guide) => (
             <GuideRowCard
               key={guide.id}
@@ -112,9 +111,9 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Menu Sections */}
+      <div className={`mb-6 space-y-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 ${PAGE_PAD_X}`}>
       {menuSections.map((section) => (
-        <div key={section.title} className="px-5 mb-6">
+        <div key={section.title}>
           <h3 className="text-sm text-[#6B7280] mb-3">{section.title}</h3>
 
           <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
@@ -145,8 +144,9 @@ export default function ProfilePage() {
           </div>
         </div>
       ))}
+      </div>
 
-      <div className="mb-6 px-5">
+      <div className={`mb-6 ${PAGE_PAD_X}`}>
         <PromoCalloutCard
           title="Become a Guide"
           description="Share your local knowledge and earn money by guiding travelers"
@@ -154,16 +154,14 @@ export default function ProfilePage() {
         />
       </div>
 
-      {/* Logout */}
-      <div className="px-5">
+      <div className={PAGE_PAD_X}>
         <button className="w-full flex items-center justify-center gap-2 bg-white border border-gray-200 text-[#6B7280] py-3 rounded-full hover:bg-[#F9FAFB] transition-all">
           <LogOut className="w-5 h-5" />
           <span className="text-sm">Logout</span>
         </button>
       </div>
 
-      {/* App Version */}
-      <div className="px-5 pt-6 text-center">
+      <div className={`pt-6 text-center ${PAGE_PAD_X}`}>
         <p className="text-xs text-[#6B7280]">Travellor Buddy v1.0.0</p>
       </div>
     </div>

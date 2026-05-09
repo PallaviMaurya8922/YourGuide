@@ -1,8 +1,20 @@
-import { MapPin, Calendar, Clock, Plus, StickyNote, Check } from 'lucide-react';
+import { MapPin, Calendar, Clock, Plus, ReceiptIndianRupee, StickyNote, Check } from 'lucide-react';
 import { useState } from 'react';
 import { ScreenHero } from '../components/commonComponents';
+import { PAGE_PAD_X } from '../shellLayout';
 
-export default function TripsPage() {
+export type SavedTripCard = {
+  id: number;
+  city: string;
+  dates: string;
+  places: number;
+};
+
+export type TripsPageProps = {
+  onOpenTripExpenses?: (trip: SavedTripCard) => void;
+};
+
+export default function TripsPage({ onOpenTripExpenses }: TripsPageProps) {
   const [activeTab, setActiveTab] = useState<'graph' | 'saved'>('graph');
   const [selectedNode, setSelectedNode] = useState<number | null>(null);
 
@@ -67,13 +79,13 @@ export default function TripsPage() {
   return (
     <div className="min-h-full bg-white">
       <ScreenHero
-        className="rounded-b-3xl px-5 pb-6 pt-10 sm:pt-12"
+        className="rounded-b-3xl pb-6 pt-10 sm:pt-12"
         title="My Trips"
         subtitle="Track your journeys and saved plans"
+        hideTitleFromLg
       />
 
-      {/* Tabs */}
-      <div className="px-5 py-4 border-b border-gray-200">
+      <div className={`border-b border-gray-200 py-4 ${PAGE_PAD_X}`}>
         <div className="flex gap-4">
           <button
             onClick={() => setActiveTab('graph')}
@@ -99,9 +111,8 @@ export default function TripsPage() {
       </div>
 
       {activeTab === 'graph' ? (
-        <div className="px-5 py-6">
-          {/* Trip Info */}
-          <div className="bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] rounded-2xl p-5 mb-6 text-white">
+        <div className={`py-6 ${PAGE_PAD_X}`}>
+          <div className="mb-6 rounded-2xl bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] p-5 text-white md:p-6">
             <h2 className="text-lg mb-1">{journeyGraph.trip}</h2>
             <div className="flex items-center gap-4 text-sm text-white/80">
               <div className="flex items-center gap-1">
@@ -114,9 +125,9 @@ export default function TripsPage() {
           </div>
 
           {/* Graph Visualization */}
-          <div className="bg-[#F9FAFB] rounded-2xl p-6 mb-6">
-            <div className="relative w-full" style={{ height: '300px' }}>
-              <svg className="w-full h-full">
+          <div className="mb-6 rounded-2xl bg-[#F9FAFB] p-4 sm:p-6">
+            <div className="relative mx-auto aspect-square w-full max-w-[17.5rem] md:max-w-xs">
+              <svg className="h-full w-full" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
                 {/* Draw connections */}
                 {journeyGraph.nodes.map((node, index) => {
                   if (index < journeyGraph.nodes.length - 1) {
@@ -180,7 +191,7 @@ export default function TripsPage() {
             </div>
 
             {/* Legend */}
-            <div className="flex items-center justify-center gap-6 mt-4 text-xs">
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs sm:gap-6 md:text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#3B82F6] rounded-full" />
                 <span className="text-[#6B7280]">Visited</span>
@@ -198,8 +209,8 @@ export default function TripsPage() {
 
           {/* Places List */}
           <div>
-            <h3 className="text-base text-[#111827] mb-4">All Places</h3>
-            <div className="space-y-3">
+            <h3 className="mb-4 text-base text-[#111827] md:text-lg">All Places</h3>
+            <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 xl:grid-cols-3">
               {journeyGraph.nodes.map((node) => (
                 <div
                   key={node.id}
@@ -266,9 +277,8 @@ export default function TripsPage() {
           </div>
         </div>
       ) : (
-        <div className="px-5 py-6 pb-8">
-          {/* Saved Trips */}
-          <div className="space-y-4">
+        <div className={`py-6 pb-8 ${PAGE_PAD_X}`}>
+          <div className="space-y-4 md:grid md:grid-cols-2 md:gap-5 md:space-y-0 xl:grid-cols-3">
             {savedTrips.map((trip) => (
               <div key={trip.id} className="bg-white border border-gray-200 rounded-2xl p-5 hover:border-[#3B82F6] transition-all">
                 <div className="flex gap-4 mb-4">
@@ -299,7 +309,7 @@ export default function TripsPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                <div className="flex flex-col gap-3 pt-3 border-t border-gray-100 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex gap-4 text-sm">
                     <div>
                       <p className="text-[#6B7280] text-xs mb-0.5">Places</p>
@@ -311,9 +321,28 @@ export default function TripsPage() {
                     </div>
                   </div>
 
-                  <button className="text-[#3B82F6] text-sm">
-                    View Details →
-                  </button>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {onOpenTripExpenses ? (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onOpenTripExpenses({
+                            id: trip.id,
+                            city: trip.city,
+                            dates: trip.dates,
+                            places: trip.places,
+                          })
+                        }
+                        className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#3B82F6] bg-[#EFF6FF] px-3 py-2 text-xs font-semibold text-[#1E3A8A] hover:bg-[#DBEAFE]"
+                      >
+                        <ReceiptIndianRupee className="size-3.5 shrink-0" aria-hidden />
+                        Split costs
+                      </button>
+                    ) : null}
+                    <button type="button" className="text-[#3B82F6] text-sm font-medium">
+                      View Details →
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

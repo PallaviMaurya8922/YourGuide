@@ -25,6 +25,9 @@ export type { PromoCalloutCardProps } from './PromoCalloutCard';
 export { MobileTabBar } from './MobileTabBar';
 export type { MobileTabBarItem, MobileTabBarProps } from './MobileTabBar';
 
+export { DesktopTopNav } from './DesktopTopNav';
+export type { DesktopTopNavItem, DesktopTopNavProps } from './DesktopTopNav';
+
 export { InfoStatTile } from './InfoStatTile';
 export type { InfoStatTileProps, InfoStatTileVariant } from './InfoStatTile';
 

@@ -27,7 +27,7 @@ export function GuideExploreCard({ guide, onSelect, className }: GuideExploreCar
   return (
     <article
       className={cn(
-        'rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] hover:shadow-lg',
+        'flex min-w-0 flex-col rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] hover:shadow-lg',
         interactive && 'cursor-pointer',
         !interactive && 'cursor-default hover:border-gray-200 hover:shadow-none',
         className,
@@ -55,21 +55,21 @@ export function GuideExploreCard({ guide, onSelect, className }: GuideExploreCar
         </div>
       </div>
 
-      <p className="mb-3 line-clamp-2 text-sm text-[#6B7280]">{guide.description}</p>
+      <p className="mb-3 line-clamp-2 flex-1 text-sm text-[#6B7280]">{guide.description}</p>
 
-      <div className="flex items-center justify-between gap-2 border-t border-gray-100 pt-3">
-        <div className="flex flex-wrap gap-1.5">
+      <div className="mt-auto min-w-0 border-t border-gray-100 pt-3">
+        <div className="mb-3 flex min-w-0 flex-wrap gap-1.5">
           {guide.languages.map((lang) => (
             <span key={lang} className="rounded-full bg-[#F9FAFB] px-2.5 py-1 text-xs text-[#6B7280]">
               {lang}
             </span>
           ))}
         </div>
-        <div className="flex shrink-0 items-center gap-3">
-          <span className="text-base text-[#1E3A8A]">₹{guide.price}/hr</span>
+        <div className="flex min-w-0 items-center justify-between gap-2">
+          <span className="min-w-0 truncate text-base font-medium text-[#1E3A8A]">₹{guide.price}/hr</span>
           <button
             type="button"
-            className="rounded-full bg-[#1E3A8A] px-4 py-2 text-sm text-white transition-all hover:bg-[#1E3A8A]/90"
+            className="shrink-0 rounded-full bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#1E3A8A]/90"
             onClick={(e) => {
               e.stopPropagation();
               onSelect?.(guide.id);

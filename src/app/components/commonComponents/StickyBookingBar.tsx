@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { SHELL_MAX_WIDTH_CLASS } from '../../shellLayout';
 import { cn } from '../ui/utils';
 
 export type StickyBookingBarProps = {
@@ -22,11 +23,13 @@ export function StickyBookingBar({
   return (
     <div
       className={cn(
-        'fixed bottom-0 left-1/2 z-40 w-full max-w-md -translate-x-1/2 border-t border-gray-200 bg-white px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6 sm:py-4',
+        'fixed bottom-0 left-1/2 z-40 -translate-x-1/2 border-gray-200 bg-white px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6 sm:py-4 md:px-8 lg:px-10 max-lg:border-t',
+        SHELL_MAX_WIDTH_CLASS,
+        'lg:bottom-6 lg:w-max lg:max-w-lg lg:rounded-2xl lg:border lg:shadow-lg xl:max-w-xl',
         className,
       )}
     >
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 lg:flex-nowrap">
         <div className="min-w-0">
           <p className="text-xs text-[#6B7280]">{priceLabel}</p>
           <p className="text-2xl font-semibold text-[#1E3A8A] sm:text-3xl">{priceDisplay}</p>
