@@ -76,6 +76,7 @@ export default function App() {
       case 'trips':
         return (
           <TripsPage
+            onPlanTrip={() => setCurrentScreen('planner')}
             onOpenTripExpenses={(trip) => {
               getOrCreateTripForSavedTrip(trip.id, {
                 city: trip.city,
