@@ -10,7 +10,7 @@ export function SectionTitle({ children, className }: SectionTitleProps) {
   return (
     <h2
       className={cn(
-        'mb-3 text-base font-semibold tracking-tight text-[#111827] sm:mb-4 sm:text-lg',
+        'mb-2 text-sm font-semibold tracking-tight text-[#111827] sm:mb-3 sm:text-base md:text-lg',
         className,
       )}
     >

@@ -56,6 +56,8 @@ export type SavedTripMock = {
   /** Shown when no linked split group exists yet */
   expensePreviewLabel: string;
   insight: string;
+  /** Shown in expanded trip details (e.g. next stop) */
+  nextUp?: string;
 };
 
 export const SAVED_TRIPS_MOCK: SavedTripMock[] = [
@@ -71,6 +73,7 @@ export const SAVED_TRIPS_MOCK: SavedTripMock[] = [
     journeyProgress: 62,
     expensePreviewLabel: '₹9,000 shared · 2 expenses',
     insight: 'Next: evening aarti — leave buffer for ghats.',
+    nextUp: 'Ramnagar Fort · today 11:00 AM',
   },
   {
     id: 2,
@@ -84,6 +87,7 @@ export const SAVED_TRIPS_MOCK: SavedTripMock[] = [
     journeyProgress: 100,
     expensePreviewLabel: '₹24,400 settled',
     insight: 'Great pace — Taj at sunrise was the highlight.',
+    nextUp: 'Trip complete — revisit saved places anytime.',
   },
   {
     id: 3,
@@ -97,5 +101,6 @@ export const SAVED_TRIPS_MOCK: SavedTripMock[] = [
     journeyProgress: 12,
     expensePreviewLabel: 'No splits yet',
     insight: 'Add a guide early — weekends fill fast.',
+    nextUp: 'Finalize dates to unlock day-by-day stops.',
   },
 ];

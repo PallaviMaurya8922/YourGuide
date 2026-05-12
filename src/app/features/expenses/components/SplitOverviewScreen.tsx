@@ -63,14 +63,14 @@ export function SplitOverviewScreen({
         : `You owe ${formatINR(Math.abs(yourNetAgg))}`;
 
   return (
-    <div className="min-h-full bg-[#F9FAFB] pb-28">
+    <div className="min-h-full bg-[#F9FAFB] pb-24 sm:pb-28">
       <ScreenHero
         title="Trip expenses"
         subtitle="Split costs with your travel group — light and simple"
         hideTitleFromLg
       />
 
-      <div className={`relative z-10 -mt-3 space-y-5 ${PAGE_PAD_X} pb-6`}>
+      <div className={`relative z-10 -mt-2 space-y-3 sm:-mt-3 sm:space-y-4 ${PAGE_PAD_X} pb-5 sm:pb-6`}>
         {isLoading && skeleton ? (
           skeleton
         ) : (
@@ -78,53 +78,53 @@ export function SplitOverviewScreen({
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="grid grid-cols-3 gap-2 sm:gap-3"
+              className="grid grid-cols-3 gap-1.5 sm:gap-2.5"
             >
-              <div className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm sm:p-4">
+              <div className="rounded-xl border border-gray-100 bg-white p-2.5 shadow-sm sm:rounded-2xl sm:p-3 md:p-3.5">
                 <p className="text-[10px] font-medium uppercase tracking-wide text-[#6B7280] sm:text-xs">
                   Shared
                 </p>
-                <p className="mt-1 truncate text-sm font-semibold text-[#111827] sm:text-base">
+                <p className="mt-0.5 truncate text-xs font-semibold text-[#111827] sm:mt-1 sm:text-sm md:text-base">
                   {formatINR(totalShared)}
                 </p>
               </div>
-              <div className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm sm:p-4">
+              <div className="rounded-xl border border-gray-100 bg-white p-2.5 shadow-sm sm:rounded-2xl sm:p-3 md:p-3.5">
                 <p className="text-[10px] font-medium uppercase tracking-wide text-[#6B7280] sm:text-xs">
                   Trips
                 </p>
-                <p className="mt-1 flex items-baseline gap-1 text-sm font-semibold text-[#111827] sm:text-base">
+                <p className="mt-0.5 flex items-baseline gap-1 text-xs font-semibold text-[#111827] sm:mt-1 sm:text-sm md:text-base">
                   {trips.length}
-                  <Users className="size-3.5 text-[#9CA3AF]" aria-hidden />
+                  <Users className="size-3 text-[#9CA3AF] sm:size-3.5" aria-hidden />
                 </p>
               </div>
-              <div className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm sm:p-4">
+              <div className="rounded-xl border border-gray-100 bg-white p-2.5 shadow-sm sm:rounded-2xl sm:p-3 md:p-3.5">
                 <p className="text-[10px] font-medium uppercase tracking-wide text-[#6B7280] sm:text-xs">
                   Your net
                 </p>
-                <p className="mt-1 line-clamp-2 text-xs font-semibold leading-tight text-[#1E3A8A] sm:text-sm">
+                <p className="mt-0.5 text-[11px] font-semibold leading-snug text-[#1E3A8A] sm:mt-1 sm:text-xs md:text-sm">
                   {netLabel}
                 </p>
               </div>
             </motion.div>
 
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-sm font-semibold text-[#111827] sm:text-base">Active trips</h2>
-              <span className="text-xs text-[#6B7280]">
+            <div className="flex items-center justify-between gap-2">
+              <h2 className="text-[13px] font-semibold text-[#111827] sm:text-sm md:text-base">Active trips</h2>
+              <span className="max-w-[55%] text-right text-[10px] leading-snug text-[#6B7280] sm:max-w-none sm:text-xs">
                 {travelerCount} travelers across groups
               </span>
             </div>
 
             {trips.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center shadow-sm">
-                <ReceiptIndianRupee className="mx-auto mb-3 size-10 text-[#93C5FD]" aria-hidden />
+              <div className="rounded-xl border border-dashed border-gray-200 bg-white p-6 text-center shadow-sm sm:rounded-2xl sm:p-8">
+                <ReceiptIndianRupee className="mx-auto mb-2 size-8 text-[#93C5FD] sm:mb-3 sm:size-10" aria-hidden />
                 <p className="text-sm font-medium text-[#111827]">No trips yet</p>
-                <p className="mt-1 text-xs text-[#6B7280]">
+                <p className="mt-1 text-[11px] leading-relaxed text-[#6B7280] sm:text-xs">
                   Start from Planner or My Trips, or create a group here.
                 </p>
                 <button
                   type="button"
                   onClick={onCreateTrip}
-                  className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1E3A8A] px-5 text-sm font-medium text-white shadow-sm"
+                  className="mt-4 inline-flex min-h-10 items-center gap-1.5 rounded-full bg-[#1E3A8A] px-4 text-[13px] font-medium text-white shadow-sm sm:mt-5 sm:min-h-11 sm:gap-2 sm:px-5 sm:text-sm"
                 >
                   <Plus className="size-4" aria-hidden />
                   New split group
@@ -135,7 +135,7 @@ export function SplitOverviewScreen({
                 variants={listVariants}
                 initial="hidden"
                 animate="show"
-                className="space-y-3"
+                className="space-y-2 sm:space-y-2.5"
               >
                 {trips.map((trip) => {
                   const spent = tripTotalSpent(trip.expenses);
@@ -153,7 +153,7 @@ export function SplitOverviewScreen({
                         type="button"
                         onClick={() => onSelectTrip(trip.id)}
                         className={cn(
-                          'flex w-full min-w-0 flex-col gap-3 rounded-2xl border bg-white p-4 text-left shadow-sm transition-all',
+                          'flex w-full min-w-0 flex-col gap-2 rounded-xl border bg-white p-3 text-left shadow-sm transition-all sm:gap-2.5 sm:rounded-2xl sm:p-3.5 md:p-4',
                           active
                             ? 'border-[#3B82F6] ring-1 ring-[#3B82F6]/20'
                             : 'border-gray-100 hover:border-gray-200 hover:shadow-md',
@@ -179,7 +179,7 @@ export function SplitOverviewScreen({
                           </span>
                         </div>
 
-                        <div className="flex flex-wrap items-end justify-between gap-2 border-t border-gray-50 pt-3">
+                        <div className="flex flex-wrap items-end justify-between gap-2 border-t border-gray-50 pt-2 sm:pt-2.5 md:pt-3">
                           <div>
                             <p className="text-[10px] uppercase tracking-wide text-[#6B7280]">
                               Outstanding
@@ -214,7 +214,7 @@ export function SplitOverviewScreen({
               <button
                 type="button"
                 onClick={onCreateTrip}
-                className="flex w-full min-h-11 items-center justify-center gap-2 rounded-2xl border border-dashed border-[#BFDBFE] bg-[#EFF6FF] py-3 text-sm font-medium text-[#1E3A8A] transition-colors hover:bg-[#DBEAFE]"
+                className="flex w-full min-h-10 items-center justify-center gap-1.5 rounded-xl border border-dashed border-[#BFDBFE] bg-[#EFF6FF] py-2.5 text-[13px] font-medium text-[#1E3A8A] transition-colors hover:bg-[#DBEAFE] sm:min-h-11 sm:gap-2 sm:rounded-2xl sm:py-3 sm:text-sm"
               >
                 <Plus className="size-4" aria-hidden />
                 New split group

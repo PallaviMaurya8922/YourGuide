@@ -22,17 +22,19 @@ export function PromoCalloutCard({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 rounded-2xl bg-gradient-to-r from-[#F97316] to-[#FB923C] p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:p-6',
+        'flex flex-col gap-3 rounded-2xl bg-gradient-to-r from-[#F97316] to-[#FB923C] p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:p-5 md:p-6',
         className,
       )}
     >
       <div className="min-w-0 flex-1">
-        <h3 className="mb-1 text-lg text-white md:text-xl">{title}</h3>
-        <p className="mb-3 text-sm text-white/90 md:text-[15px]">{description}</p>
+        <h3 className="mb-0.5 text-base font-semibold text-white sm:text-lg md:text-xl">{title}</h3>
+        <p className="mb-2 text-xs leading-relaxed text-white/90 sm:mb-3 sm:text-sm md:text-[15px]">
+          {description}
+        </p>
         <button
           type="button"
           onClick={onAction}
-          className="rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#F97316] transition-colors hover:bg-white/95"
+          className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#F97316] shadow-sm transition-colors hover:bg-white/95 sm:px-5 sm:py-2.5 sm:text-sm"
         >
           {actionLabel}
         </button>

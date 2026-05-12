@@ -47,7 +47,7 @@ export function GuideRowCard(props: GuideRowCardProps) {
             : undefined
         }
         className={cn(
-          'flex cursor-pointer items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6]',
+          'flex cursor-pointer items-center gap-2.5 rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:gap-3 sm:rounded-2xl sm:p-3.5 md:p-4',
           !interactive && 'cursor-default hover:border-gray-200',
         )}
       >
@@ -85,31 +85,34 @@ export function GuideRowCard(props: GuideRowCardProps) {
           : undefined
       }
       className={cn(
-        'flex cursor-pointer items-center gap-4 rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6]',
+        'flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:gap-3.5 sm:rounded-2xl sm:p-3.5 md:gap-4 md:p-4',
         !interactive && 'cursor-default hover:border-gray-200',
       )}
     >
       <GuideAvatar image={image} size="md" />
       <div className="min-w-0 flex-1">
-        <div className="mb-1 flex items-center justify-between gap-2">
-          <h3 className="text-sm text-[#111827]">{name}</h3>
+        <div className="mb-0.5 flex items-center justify-between gap-2 sm:mb-1">
+          <h3 className="text-[13px] font-semibold text-[#111827] sm:text-sm">{name}</h3>
           <div className="flex shrink-0 items-center gap-1">
             <Star className="size-4 fill-[#F97316] text-[#F97316]" aria-hidden />
             <span className="text-sm text-[#111827]">{rating}</span>
           </div>
         </div>
-        <p className="mb-2 text-xs text-[#6B7280]">
+        <p className="mb-1 text-[11px] leading-snug text-[#6B7280] sm:mb-1.5 sm:text-xs">
           {expertise} • {trips} trips
         </p>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-2">
           <div className="flex flex-wrap gap-1">
             {languages.slice(0, 2).map((lang) => (
-              <span key={lang} className="rounded-full bg-[#F9FAFB] px-2 py-1 text-xs text-[#6B7280]">
+              <span
+                key={lang}
+                className="rounded-full bg-[#F9FAFB] px-1.5 py-0.5 text-[10px] text-[#6B7280] sm:px-2 sm:py-1 sm:text-xs"
+              >
                 {lang}
               </span>
             ))}
           </div>
-          <span className="shrink-0 text-sm text-[#1E3A8A]">₹{pricePerHour}/hr</span>
+          <span className="shrink-0 text-xs font-semibold text-[#1E3A8A] sm:text-sm">₹{pricePerHour}/hr</span>
         </div>
       </div>
     </div>

@@ -1,11 +1,6 @@
-import { Filter, Star, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import {
-  GuideExploreCard,
-  PillSearchInput,
-  ScreenHero,
-  type GuideExploreCardGuide,
-} from '../components/commonComponents';
+import { GuideExploreCard, type GuideExploreCardGuide } from '../components/commonComponents';
+import { defaultGuideFilters, FiltersRow, GuidesExploreHeader, type GuideFiltersState } from '../features/explore';
 import { PAGE_PAD_X } from '../shellLayout';
 
 interface ExplorePageProps {
@@ -13,16 +8,7 @@ interface ExplorePageProps {
 }
 
 export default function ExplorePage({ onGuideClick }: ExplorePageProps) {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-
-  const filterOptions = [
-    { id: 'all', label: 'All Guides', icon: null },
-    { id: 'hindi', label: 'Hindi', icon: null },
-    { id: 'english', label: 'English', icon: null },
-    { id: 'budget', label: '< ₹500', icon: null },
-    { id: 'premium', label: '₹500+', icon: null },
-    { id: 'top-rated', label: '4.5+', icon: Star },
-  ];
+  const [filters, setFilters] = useState<GuideFiltersState>(() => ({ ...defaultGuideFilters }));
 
   const guides: GuideExploreCardGuide[] = [
     {
@@ -89,59 +75,18 @@ export default function ExplorePage({ onGuideClick }: ExplorePageProps) {
 
   return (
     <div className="min-h-full bg-white">
-      <ScreenHero title="Explore Guides" subtitle="Verified experts in Varanasi" hideTitleFromLg>
-        <PillSearchInput placeholder="Name, language, expertise…" aria-label="Search guides" />
-      </ScreenHero>
+      <GuidesExploreHeader />
 
-      <div className={`border-b border-gray-200 py-2.5 sm:py-3 ${PAGE_PAD_X}`}>
-        <button type="button" className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-[#6B7280]">Showing guides in</span>
-            <span className="text-sm text-[#1E3A8A]">Varanasi</span>
-          </div>
-          <ChevronDown className="h-5 w-5 text-[#6B7280]" aria-hidden />
-        </button>
-      </div>
+      <FiltersRow city="Varanasi" filters={filters} onFiltersChange={setFilters} />
 
-      <div className={`border-b border-gray-200 py-2.5 sm:py-3 ${PAGE_PAD_X}`}>
-        <div className="no-scrollbar flex flex-wrap items-center gap-2 overflow-x-auto pb-1 sm:pb-2 md:overflow-x-visible md:pb-0">
-          {filterOptions.map((filter) => (
-            <button
-              key={filter.id}
-              type="button"
-              onClick={() => {
-                if (selectedFilters.includes(filter.id)) {
-                  setSelectedFilters(selectedFilters.filter((f) => f !== filter.id));
-                } else {
-                  setSelectedFilters([...selectedFilters, filter.id]);
-                }
-              }}
-              className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm transition-all ${
-                selectedFilters.includes(filter.id) || filter.id === 'all'
-                  ? 'bg-[#1E3A8A] text-white'
-                  : 'border border-gray-200 bg-[#F9FAFB] text-[#6B7280]'
-              }`}
-            >
-              {filter.icon ? <filter.icon className="h-4 w-4" /> : null}
-              <span>{filter.label}</span>
-            </button>
-          ))}
-          <button
-            type="button"
-            className="flex items-center gap-2 whitespace-nowrap rounded-full border border-gray-200 bg-[#F9FAFB] px-4 py-2 text-sm text-[#6B7280]"
-          >
-            <Filter className="h-4 w-4" aria-hidden />
-            More
-          </button>
-        </div>
-      </div>
-
-      <div className={`bg-[#F9FAFB] py-2 sm:py-2.5 ${PAGE_PAD_X}`}>
-        <p className="text-sm text-[#6B7280] md:text-base">{guides.length} verified guides available</p>
+      <div className={`bg-[#F9FAFB] py-1.5 sm:py-2 ${PAGE_PAD_X}`}>
+        <p className="text-xs text-[#6B7280] sm:text-sm md:text-base">
+          {guides.length} verified guides available
+        </p>
       </div>
 
       <div
-        className={`grid min-w-0 grid-cols-1 gap-4 py-3 pb-8 sm:gap-5 md:grid-cols-2 md:py-4 xl:grid-cols-3 [&>*]:min-w-0 ${PAGE_PAD_X}`}
+        className={`grid min-w-0 grid-cols-1 gap-3 py-2 pb-6 sm:pb-7 md:grid-cols-2 md:py-3 md:pb-8 xl:grid-cols-3 [&>*]:min-w-0 ${PAGE_PAD_X}`}
       >
         {guides.map((guide) => (
           <GuideExploreCard key={guide.id} className="h-full" guide={guide} onSelect={onGuideClick} />

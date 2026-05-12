@@ -170,7 +170,7 @@ export default function App() {
           'lg:pt-14',
           currentScreen === 'guide-profile'
             ? 'pb-2'
-            : 'pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-[calc(4.5rem+env(safe-area-inset-bottom))]',
+            : 'pb-[calc(3.5rem+env(safe-area-inset-bottom))] sm:pb-[calc(3.625rem+env(safe-area-inset-bottom))] md:pb-[calc(4rem+env(safe-area-inset-bottom))]',
         )}
       >
         {renderScreen()}

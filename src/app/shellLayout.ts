@@ -5,5 +5,5 @@ export const SHELL_MAX_WIDTH_CLASS =
 /** Scrollable app root: centers content on large viewports. */
 export const SHELL_CONTAINER_CLASS = `relative mx-auto ${SHELL_MAX_WIDTH_CLASS}` as const;
 
-/** Horizontal padding for page sections (matches hero breakpoints). */
-export const PAGE_PAD_X = 'px-4 sm:px-6 md:px-8 lg:px-10' as const;
+/** Horizontal padding: tighter on phones (360–430px), roomier from `sm` up. */
+export const PAGE_PAD_X = 'px-3 sm:px-5 md:px-8 lg:px-10' as const;

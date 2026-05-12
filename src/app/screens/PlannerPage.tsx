@@ -148,28 +148,28 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
 
   if (plannerState === 'result') {
     return (
-      <div className="min-h-full bg-[#F3F4F6] pb-10">
-        <header className="relative overflow-hidden rounded-b-[1.75rem] bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-4 pb-8 pt-[max(0.75rem,env(safe-area-inset-top))] text-white sm:px-5 sm:pb-10 md:px-8 lg:px-10">
+      <div className="min-h-full bg-[#F3F4F6] pb-8 sm:pb-10">
+        <header className="relative overflow-hidden rounded-b-[1.25rem] bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-3 pb-5 pt-[max(0.5rem,env(safe-area-inset-top))] text-white sm:rounded-b-[1.75rem] sm:px-5 sm:pb-7 sm:pt-[max(0.75rem,env(safe-area-inset-top))] md:px-8 lg:px-10">
           <button
             type="button"
             onClick={() => setPlannerState('input')}
-            className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm transition-colors hover:bg-white/25"
+            className="mb-2.5 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm transition-colors hover:bg-white/25 sm:mb-3 sm:px-3 sm:py-1.5 sm:text-sm"
           >
             <ArrowLeft className="size-4" aria-hidden />
             Edit trip
           </button>
-          <div className="flex items-start gap-3">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm sm:size-14">
-              <Sparkles className="size-6 sm:size-7" aria-hidden />
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm sm:size-12 sm:rounded-2xl md:size-14">
+              <Sparkles className="size-5 sm:size-6 md:size-7" aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
-              <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">Your itinerary</h1>
-              <p className="mt-1 text-sm text-white/85">
+              <h1 className="text-lg font-semibold tracking-tight sm:text-xl md:text-2xl">Your itinerary</h1>
+              <p className="mt-0.5 text-xs leading-snug text-white/85 sm:mt-1 sm:text-sm">
                 {displayCity} · {daysLabel} {daysLabel === 1 ? 'day' : 'days'} · {itinerary.totalPlaces}{' '}
                 stops
               </p>
               {budgetLabel ? (
-                <p className="mt-2 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white/95">
+                <p className="mt-1.5 inline-flex rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-medium text-white/95 sm:mt-2 sm:px-3 sm:py-1 sm:text-xs">
                   {budgetLabel} budget
                 </p>
               ) : null}
@@ -177,17 +177,17 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
           </div>
         </header>
 
-        <div className={`relative z-10 -mt-4 space-y-4 ${PAGE_PAD_X}`}>
-          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-2">
+        <div className={`relative z-10 -mt-3 space-y-3 sm:-mt-4 sm:space-y-4 ${PAGE_PAD_X}`}>
+          <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:gap-2">
             <button
               type="button"
-              className="min-h-[44px] flex-1 rounded-full border border-[#3B82F6] bg-white px-4 py-2.5 text-sm font-semibold text-[#1E3A8A] shadow-sm transition-colors hover:bg-[#EFF6FF] sm:min-w-0 sm:flex-none"
+              className="min-h-10 flex-1 rounded-full border border-[#3B82F6] bg-white px-3 py-2 text-[13px] font-semibold text-[#1E3A8A] shadow-sm transition-colors hover:bg-[#EFF6FF] sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
             >
               Optimize route
             </button>
             <button
               type="button"
-              className="min-h-[44px] flex-1 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-[#374151] shadow-sm transition-colors hover:bg-gray-50 sm:min-w-0 sm:flex-none"
+              className="min-h-10 flex-1 rounded-full border border-gray-200 bg-white px-3 py-2 text-[13px] font-medium text-[#374151] shadow-sm transition-colors hover:bg-gray-50 sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
             >
               Edit plan
             </button>
@@ -206,7 +206,7 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
                     },
                   })
                 }
-                className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-4 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/25 sm:min-w-0 sm:flex-none"
+                className="inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-white/40 bg-white/15 px-3 py-2 text-[13px] font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/25 sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
               >
                 <ReceiptIndianRupee className="size-4 shrink-0" aria-hidden />
                 Split expenses
@@ -214,25 +214,25 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
             ) : null}
             <button
               type="button"
-              className="min-h-[44px] flex-1 rounded-full bg-[#1E3A8A] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-w-0 sm:flex-none"
+              className="min-h-10 flex-1 rounded-full bg-[#1E3A8A] px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
             >
               Save trip
             </button>
           </div>
 
-          <div className="space-y-5 sm:space-y-6 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
+          <div className="space-y-3 sm:space-y-4 lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0">
             {itinerary.schedule.map((day) => (
               <section
                 key={day.day}
                 className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
               >
-                <div className="flex items-center gap-3 border-b border-gray-100 bg-gradient-to-r from-[#F8FAFC] to-white px-4 py-3.5 sm:px-5">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] text-sm font-bold text-white shadow-sm sm:size-12 sm:text-base">
+                <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gradient-to-r from-[#F8FAFC] to-white px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:px-5">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] text-xs font-bold text-white shadow-sm sm:size-11 sm:rounded-xl sm:text-sm md:size-12 md:text-base">
                     D{day.day}
                   </div>
                   <div className="min-w-0">
-                    <h2 className="text-base font-semibold text-[#111827] sm:text-lg">{day.title}</h2>
-                    <p className="text-xs text-[#6B7280] sm:text-sm">
+                    <h2 className="text-sm font-semibold text-[#111827] sm:text-base md:text-lg">{day.title}</h2>
+                    <p className="text-[11px] text-[#6B7280] sm:text-xs md:text-sm">
                       {day.places.length} {day.places.length === 1 ? 'stop' : 'stops'}
                     </p>
                   </div>
@@ -244,7 +244,7 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
                     return (
                       <li key={`${day.day}-${place.name}-${index}`} className="relative">
                         <div className="flex gap-0 sm:gap-1">
-                          <div className="flex w-14 shrink-0 flex-col items-center border-r border-gray-100 bg-[#FAFBFC] py-4 sm:w-16">
+                          <div className="flex w-12 shrink-0 flex-col items-center border-r border-gray-100 bg-[#FAFBFC] py-3 sm:w-14 sm:py-3.5 md:w-16 md:py-4">
                             <div className="px-1 text-center text-[10px] font-semibold leading-tight text-[#1E40AF] sm:text-xs">
                               {place.time.split(' ').map((part, ti) => (
                                 <span key={`${place.time}-${ti}`} className="block">
@@ -259,11 +259,11 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
                               />
                             ) : null}
                           </div>
-                          <div className="min-w-0 flex-1 p-3.5 sm:p-4">
-                            <h3 className="text-sm font-semibold leading-snug text-[#111827] sm:text-base">
+                          <div className="min-w-0 flex-1 p-3 sm:p-3.5 md:p-4">
+                            <h3 className="text-[13px] font-semibold leading-snug text-[#111827] sm:text-sm md:text-base">
                               {place.name}
                             </h3>
-                            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#6B7280] sm:text-sm">
+                            <div className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[11px] text-[#6B7280] sm:mt-2 sm:gap-x-2 sm:text-xs md:text-sm">
                               <span className="inline-flex items-center gap-1">
                                 <Clock className="size-3.5 shrink-0 opacity-80" aria-hidden />
                                 {place.duration}
@@ -281,7 +281,7 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
                             </div>
                             <button
                               type="button"
-                              className="mt-3 inline-flex items-center gap-0.5 text-xs font-semibold text-[#2563EB] hover:text-[#1d4ed8] sm:text-sm"
+                              className="mt-2 inline-flex items-center gap-0.5 text-[11px] font-semibold text-[#2563EB] hover:text-[#1d4ed8] sm:mt-2.5 sm:text-xs md:text-sm"
                             >
                               View on map
                               <ChevronRight className="size-3.5" aria-hidden />
@@ -296,14 +296,14 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
             ))}
           </div>
 
-          <div className="overflow-hidden rounded-2xl bg-gradient-to-r from-[#F97316] to-[#FB923C] p-4 shadow-sm sm:p-5">
-            <h3 className="text-base font-semibold text-white sm:text-lg">Upgrade to Premium</h3>
-            <p className="mt-1 text-xs leading-relaxed text-white/90 sm:text-sm">
+          <div className="overflow-hidden rounded-xl bg-gradient-to-r from-[#F97316] to-[#FB923C] p-3 shadow-sm sm:rounded-2xl sm:p-4 md:p-5">
+            <h3 className="text-sm font-semibold text-white sm:text-base md:text-lg">Upgrade to Premium</h3>
+            <p className="mt-0.5 text-[11px] leading-relaxed text-white/90 sm:mt-1 sm:text-xs md:text-sm">
               Dynamic route optimization, nearby picks, and offline maps.
             </p>
             <button
               type="button"
-              className="mt-3 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#EA580C] shadow-sm transition-colors hover:bg-white/95"
+              className="mt-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#EA580C] shadow-sm transition-colors hover:bg-white/95 sm:mt-3 sm:px-4 sm:py-2 sm:text-sm"
             >
               Learn more
             </button>
@@ -314,47 +314,47 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
   }
 
   return (
-    <div className="min-h-full bg-white pb-10">
+    <div className="min-h-full bg-white pb-8 sm:pb-10">
       <ScreenHero
-        className="mb-6 rounded-b-3xl pb-6 pt-[max(3rem,env(safe-area-inset-top))]"
+        className="mb-4 rounded-b-3xl pb-4 pt-[max(2.25rem,env(safe-area-inset-top))] sm:mb-5 sm:pb-5 sm:pt-[max(2.75rem,env(safe-area-inset-top))]"
         title="Plan Your Trip"
         subtitle="Create a smart itinerary in minutes"
         hideTitleFromLg
       />
 
-      <div className={`space-y-6 ${PAGE_PAD_X}`}>
+      <div className={`space-y-4 sm:space-y-5 ${PAGE_PAD_X}`}>
         <div>
-          <label className="mb-3 block text-sm text-[#111827]">Select City</label>
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+          <label className="mb-2 block text-xs font-medium text-[#111827] sm:mb-2.5 sm:text-sm">Select City</label>
+          <div className="grid grid-cols-2 gap-2 sm:gap-2.5 lg:grid-cols-4 lg:gap-3">
             {['Varanasi', 'Ayodhya', 'Agra', 'Jaipur'].map((city) => (
               <button
                 key={city}
                 type="button"
                 onClick={() => setSelectedCity(city)}
-                className={`rounded-2xl border p-4 text-center transition-all ${
+                className={`rounded-xl border p-3 text-center transition-all sm:rounded-2xl sm:p-3.5 md:p-4 ${
                   selectedCity === city
                     ? 'border-[#3B82F6] bg-[#3B82F6]/5'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="mb-2 text-3xl" aria-hidden>
+                <div className="mb-1 text-2xl sm:mb-1.5 sm:text-3xl" aria-hidden>
                   {city === 'Varanasi' ? '🕉️' : city === 'Ayodhya' ? '🛕' : city === 'Agra' ? '🕌' : '🏰'}
                 </div>
-                <span className="text-sm text-[#111827]">{city}</span>
+                <span className="text-xs font-medium text-[#111827] sm:text-sm">{city}</span>
               </button>
             ))}
           </div>
         </div>
 
         <div>
-          <label className="mb-3 block text-sm text-[#111827]">Number of Days</label>
-          <div className="flex flex-wrap gap-3">
+          <label className="mb-2 block text-xs font-medium text-[#111827] sm:mb-2.5 sm:text-sm">Number of Days</label>
+          <div className="flex flex-wrap gap-2 sm:gap-2.5">
             {['1', '2', '3', '4', '5'].map((day) => (
               <button
                 key={day}
                 type="button"
                 onClick={() => setSelectedDays(day)}
-                className={`min-h-[44px] min-w-[2.75rem] flex-1 rounded-xl border py-3 text-sm transition-all sm:min-w-0 ${
+                className={`min-h-10 min-w-[2.5rem] flex-1 rounded-lg border py-2 text-xs font-medium transition-all sm:min-h-[44px] sm:min-w-0 sm:rounded-xl sm:py-2.5 sm:text-sm ${
                   selectedDays === day
                     ? 'border-[#3B82F6] bg-[#3B82F6]/5 text-[#3B82F6]'
                     : 'border-gray-200 text-[#6B7280] hover:border-gray-300'
@@ -367,14 +367,14 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
         </div>
 
         <div>
-          <label className="mb-3 block text-sm text-[#111827]">Select Interests</label>
-          <div className="flex flex-wrap gap-2">
+          <label className="mb-2 block text-xs font-medium text-[#111827] sm:mb-2.5 sm:text-sm">Select Interests</label>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {interests.map((interest) => (
               <button
                 key={interest.id}
                 type="button"
                 onClick={() => toggleInterest(interest.id)}
-                className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm transition-all ${
+                className={`flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium transition-all sm:gap-2 sm:px-3.5 sm:py-2 sm:text-sm ${
                   selectedInterests.includes(interest.id)
                     ? 'bg-[#1E3A8A] text-white'
                     : 'border border-gray-200 bg-[#F9FAFB] text-[#6B7280]'
@@ -388,14 +388,14 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
         </div>
 
         <div>
-          <label className="mb-3 block text-sm text-[#111827]">Budget Level</label>
-          <div className="grid grid-cols-3 gap-3">
+          <label className="mb-2 block text-xs font-medium text-[#111827] sm:mb-2.5 sm:text-sm">Budget Level</label>
+          <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
             {BUDGET_OPTIONS.map((budget) => (
               <button
                 key={budget.id}
                 type="button"
                 onClick={() => setSelectedBudget(budget.id)}
-                className={`min-w-0 rounded-xl border p-3 text-center transition-all ${
+                className={`min-w-0 rounded-lg border p-2.5 text-center transition-all sm:rounded-xl sm:p-3 ${
                   selectedBudget === budget.id
                     ? 'border-[#3B82F6] bg-[#3B82F6]/5'
                     : 'border-gray-200 hover:border-[#3B82F6]/50'
@@ -414,21 +414,21 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
           type="button"
           onClick={generatePlan}
           disabled={!canGenerate}
-          className={`w-full rounded-full py-4 text-white transition-all ${
+          className={`w-full rounded-full py-3 text-sm font-semibold text-white transition-all sm:py-3.5 md:py-4 md:text-base ${
             canGenerate ? 'bg-[#1E3A8A] hover:bg-[#1E3A8A]/90' : 'cursor-not-allowed bg-gray-300'
           }`}
         >
           Generate Itinerary
         </button>
 
-        <div className="rounded-2xl border border-gray-200 bg-[#F9FAFB] p-4">
-          <div className="flex gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white">
-              <Calendar className="h-5 w-5 text-[#3B82F6]" aria-hidden />
+        <div className="rounded-xl border border-gray-200 bg-[#F9FAFB] p-3 sm:rounded-2xl sm:p-3.5 md:p-4">
+          <div className="flex gap-2.5 sm:gap-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white sm:size-10 sm:rounded-xl">
+              <Calendar className="size-[18px] text-[#3B82F6] sm:size-5" aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="mb-1 text-sm text-[#111827]">Smart Planning</h3>
-              <p className="text-xs leading-relaxed text-[#6B7280]">
+              <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:mb-1 sm:text-sm">Smart Planning</h3>
+              <p className="text-[11px] leading-relaxed text-[#6B7280] sm:text-xs">
                 Our AI optimizes routes based on distance, timing, and your interests to create the perfect itinerary.
               </p>
             </div>

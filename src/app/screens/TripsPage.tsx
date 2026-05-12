@@ -40,14 +40,14 @@ export default function TripsPage({ onOpenTripExpenses, onPlanTrip }: TripsPageP
   return (
     <div className="min-h-full bg-[#F9FAFB]">
       <ScreenHero
-        className="rounded-b-3xl pb-5 pt-10 sm:pb-6 sm:pt-12"
+        className="rounded-b-3xl pb-3.5 pt-7 sm:pb-5 sm:pt-10"
         title="My Trips"
         subtitle="Journey progress, saved plans, and shared costs"
         hideTitleFromLg
       />
 
       <div className="sticky top-0 z-20 border-b border-gray-200/80 bg-[#F9FAFB]/90 backdrop-blur-md">
-        <div className={`space-y-3 py-3 ${PAGE_PAD_X}`}>
+        <div className={`space-y-1.5 py-1.5 sm:space-y-2 sm:py-2 ${PAGE_PAD_X}`}>
           <TripsInsightBanner />
           <TripsTabBar active={activeTab} onChange={setActiveTab} />
         </div>
@@ -62,20 +62,22 @@ export default function TripsPage({ onOpenTripExpenses, onPlanTrip }: TripsPageP
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.2 }}
-            className={`space-y-5 py-5 ${PAGE_PAD_X} pb-28`}
+            className={`space-y-3 py-3 ${PAGE_PAD_X} pb-24 sm:space-y-4 sm:py-4 sm:pb-28`}
           >
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="overflow-hidden rounded-2xl bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] p-5 text-white shadow-md sm:p-6"
+              className="overflow-hidden rounded-2xl bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] p-3 text-white shadow-md sm:p-4"
             >
               <p className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
                 Active journey
               </p>
-              <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">{journey.trip}</h2>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/85 sm:text-sm">
-                <span className="inline-flex items-center gap-1.5">
-                  <Calendar className="size-3.5 shrink-0 opacity-90" aria-hidden />
+              <h2 className="mt-0.5 text-base font-semibold tracking-tight sm:text-lg md:text-xl">
+                {journey.trip}
+              </h2>
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-white/85 sm:mt-2 sm:gap-x-2.5 sm:text-sm">
+                <span className="inline-flex items-center gap-1">
+                  <Calendar className="size-3 shrink-0 opacity-90 sm:size-3.5" aria-hidden />
                   {journey.date}
                 </span>
                 <span className="text-white/50">·</span>
@@ -83,8 +85,8 @@ export default function TripsPage({ onOpenTripExpenses, onPlanTrip }: TripsPageP
                   Day {journey.currentDay} of {journey.totalDays}
                 </span>
               </div>
-              <div className="mt-4">
-                <div className="mb-1 flex justify-between text-[10px] font-medium uppercase tracking-wide text-white/70">
+              <div className="mt-3 sm:mt-3.5">
+                <div className="mb-0.5 flex justify-between text-[10px] font-medium uppercase tracking-wide text-white/70">
                   <span>Trip pace</span>
                   <span>
                     {journey.nodes.filter((n) => n.visited).length}/{journey.nodes.length} stops
@@ -118,14 +120,14 @@ export default function TripsPage({ onOpenTripExpenses, onPlanTrip }: TripsPageP
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.2 }}
-            className={`py-5 ${PAGE_PAD_X} pb-28`}
+            className={`py-3 ${PAGE_PAD_X} pb-24 sm:py-4 sm:pb-28`}
           >
             {savedLoading ? (
               <SavedTripsSkeleton />
             ) : savedTrips.length === 0 ? (
               <SavedTripsEmptyState onPlan={onPlanTrip} />
             ) : (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 [&>*]:min-w-0 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 [&>*]:min-w-0 xl:grid-cols-3">
                 {savedTrips.map((trip) => (
                   <SavedTripCard
                     key={trip.id}

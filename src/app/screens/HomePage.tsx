@@ -63,10 +63,10 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
   return (
     <div className="min-h-full bg-white">
       <ScreenHero
-        className="pt-10 pb-6 sm:pb-8 sm:pt-12"
+        className="pt-7 pb-4 sm:pb-6 sm:pt-10"
         title="Hello, Jitendra 👋"
         subtitle="Where do you want to explore today?"
-        titleSpacing="comfortable"
+        titleSpacing="default"
         hideTitleFromLg
       >
         <PillSearchInput
@@ -76,7 +76,7 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         />
       </ScreenHero>
 
-      <div className={`${PAGE_PAD_X} py-6`}>
+      <div className={`${PAGE_PAD_X} py-4 sm:py-5`}>
         <SectionHeaderRow
           title="Popular Cities"
           action={
@@ -86,12 +86,12 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
           }
         />
 
-        <div className="no-scrollbar flex gap-3 overflow-x-auto pb-2 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible md:pb-0">
+        <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1.5 sm:gap-2.5 sm:pb-2 md:grid md:grid-cols-4 md:gap-3 md:overflow-x-visible md:pb-0">
           {popularCities.map((city) => (
-            <div key={city.name} className="w-32 shrink-0 md:w-auto md:min-w-0">
-              <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-[#F9FAFB] to-white p-4 text-center md:p-5">
-                <div className="mb-2 text-4xl md:text-5xl">{city.image}</div>
-                <h3 className="mb-1 text-sm text-[#111827] md:text-base">{city.name}</h3>
+            <div key={city.name} className="w-[7.25rem] shrink-0 sm:w-28 md:w-auto md:min-w-0">
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-[#F9FAFB] to-white p-3 text-center sm:rounded-2xl sm:p-3.5 md:p-4">
+                <div className="mb-1 text-3xl sm:mb-1.5 sm:text-4xl md:text-5xl">{city.image}</div>
+                <h3 className="mb-0.5 text-xs font-medium text-[#111827] sm:text-sm md:text-base">{city.name}</h3>
                 <p className="text-xs text-[#6B7280]">{city.trips} trips</p>
               </div>
             </div>
@@ -99,69 +99,69 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         </div>
       </div>
 
-      <div className={`mb-6 ${PAGE_PAD_X}`}>
+      <div className={`mb-4 sm:mb-5 ${PAGE_PAD_X}`}>
         <PromoCalloutCard
           title="Book a Local Guide"
           description="Explore like a local with verified experts"
           actionLabel="Find Guides"
           onAction={() => onNavigate('explore')}
-          decoration={<Users className="size-16" aria-hidden />}
+          decoration={<Users className="size-10 opacity-90 sm:size-12 md:size-14" aria-hidden />}
         />
       </div>
 
-      <div className={`mb-6 ${PAGE_PAD_X}`}>
-        <h2 className="mb-4 text-lg text-[#111827] md:text-xl">Quick Actions</h2>
+      <div className={`mb-4 sm:mb-5 ${PAGE_PAD_X}`}>
+        <h2 className="mb-3 text-base font-semibold text-[#111827] sm:text-lg md:text-xl">Quick Actions</h2>
 
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 lg:grid-cols-4 lg:gap-3">
           <button
             type="button"
             onClick={() => onNavigate('explore')}
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] md:p-5"
+            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#3B82F6]/10 md:h-12 md:w-12">
-              <Users className="h-5 w-5 text-[#3B82F6] md:h-6 md:w-6" />
+            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#3B82F6]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
+              <Users className="size-[18px] text-[#3B82F6] sm:size-5 md:size-[22px]" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Book Guide</h3>
-            <p className="text-xs text-[#6B7280]">Find local experts</p>
+            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Book Guide</h3>
+            <p className="text-[11px] text-[#6B7280] sm:text-xs">Find local experts</p>
           </button>
 
           <button
             type="button"
             onClick={() => onNavigate('planner')}
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] md:p-5"
+            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#10B981]/10 md:h-12 md:w-12">
-              <Calendar className="h-5 w-5 text-[#10B981] md:h-6 md:w-6" />
+            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#10B981]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
+              <Calendar className="size-[18px] text-[#10B981] sm:size-5 md:size-[22px]" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Plan Trip</h3>
-            <p className="text-xs text-[#6B7280]">Smart itineraries</p>
+            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Plan Trip</h3>
+            <p className="text-[11px] text-[#6B7280] sm:text-xs">Smart itineraries</p>
           </button>
 
           <button
             type="button"
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:border-[#3B82F6] md:p-5"
+            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F97316]/10 md:h-12 md:w-12">
-              <MapPin className="h-5 w-5 text-[#F97316] md:h-6 md:w-6" />
+            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#F97316]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
+              <MapPin className="size-[18px] text-[#F97316] sm:size-5 md:size-[22px]" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Explore Nearby</h3>
-            <p className="text-xs text-[#6B7280]">Discover places</p>
+            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Explore Nearby</h3>
+            <p className="text-[11px] text-[#6B7280] sm:text-xs">Discover places</p>
           </button>
 
           <button
             type="button"
-            className="flex flex-col items-start rounded-2xl border border-gray-200 bg-white p-4 opacity-50 transition-all hover:border-[#3B82F6] md:p-5"
+            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 opacity-50 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
           >
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6B7280]/10 md:h-12 md:w-12">
-              <Headphones className="h-5 w-5 text-[#6B7280] md:h-6 md:w-6" />
+            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#6B7280]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
+              <Headphones className="size-[18px] text-[#6B7280] sm:size-5 md:size-[22px]" />
             </div>
-            <h3 className="mb-1 text-sm text-[#111827] md:text-base">Audio Guide</h3>
-            <p className="text-xs text-[#6B7280]">Coming soon</p>
+            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Audio Guide</h3>
+            <p className="text-[11px] text-[#6B7280] sm:text-xs">Coming soon</p>
           </button>
         </div>
       </div>
 
-      <div className={`mb-6 ${PAGE_PAD_X}`}>
+      <div className={`mb-4 sm:mb-5 ${PAGE_PAD_X}`}>
         <SectionHeaderRow
           title="Recommended Guides"
           action={
@@ -175,7 +175,7 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
           }
         />
 
-        <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
+        <div className="space-y-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0 lg:grid-cols-3">
           {recommendedGuides.map((guide) => (
             <GuideRowCard
               key={guide.id}
@@ -193,17 +193,17 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
         </div>
       </div>
 
-      <div className={`${PAGE_PAD_X} pb-8`}>
+      <div className={`${PAGE_PAD_X} pb-6 sm:pb-8`}>
         <SectionHeaderRow title="Trending Places" />
 
-        <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
+        <div className="space-y-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0 lg:grid-cols-3">
           {trendingPlaces.map((place) => (
             <div
               key={place.name}
-              className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-4"
+              className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-3 sm:rounded-2xl sm:p-3.5"
             >
-              <div>
-                <h3 className="mb-1 text-sm text-[#111827]">{place.name}</h3>
+              <div className="min-w-0 pr-2">
+                <h3 className="mb-0.5 truncate text-xs font-semibold text-[#111827] sm:text-sm">{place.name}</h3>
                 <div className="flex items-center gap-2 text-xs text-[#6B7280]">
                   <MapPin className="h-3 w-3" aria-hidden />
                   <span>{place.city}</span>

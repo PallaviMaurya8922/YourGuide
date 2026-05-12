@@ -42,38 +42,42 @@ export function ExpenseTimelineCard({
           animate(x, 0, { type: 'spring', stiffness: 380, damping: 28 });
         }}
         className={cn(
-          'relative z-10 border border-gray-100 bg-white p-4 shadow-sm',
+          'relative z-10 border border-gray-100 bg-white p-3 shadow-sm sm:p-3.5',
           expense.status === 'pending' && 'border-amber-200/80 bg-amber-50/40',
         )}
       >
-        <div className="flex gap-3">
+        <div className="flex gap-2.5 sm:gap-3">
           <div
             className={cn(
-              'flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#F3F4F6] text-[#1E3A8A]',
+              'flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#F3F4F6] text-[#1E3A8A] sm:size-11 sm:rounded-xl',
               expense.status === 'pending' && 'bg-amber-100/80 text-amber-900',
             )}
           >
-            <Cat className="size-5" aria-hidden />
+            <Cat className="size-[18px] sm:size-5" aria-hidden />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="text-sm font-semibold text-[#111827]">{expense.description}</p>
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <p className="text-[13px] font-semibold leading-snug text-[#111827] sm:text-sm">
+                {expense.description}
+              </p>
               {expense.status === 'pending' ? (
                 <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900">
                   Pending
                 </span>
               ) : null}
             </div>
-            <p className="mt-1 text-xs text-[#6B7280]">
+            <p className="mt-0.5 text-[11px] text-[#6B7280] sm:mt-1 sm:text-xs">
               {categoryLabel(expense.category)} · Paid by{' '}
               <span className="font-medium text-[#374151]">{payer}</span>
             </p>
-            <p className="mt-0.5 text-xs text-[#9CA3AF]">
+            <p className="mt-0.5 text-[10px] text-[#9CA3AF] sm:text-xs">
               {splitLabel} · {formatDistanceToNow(expense.createdAt, { addSuffix: true })}
             </p>
           </div>
           <div className="shrink-0 text-right">
-            <p className="text-sm font-semibold text-[#1E3A8A]">{formatINR(expense.amount)}</p>
+            <p className="text-[13px] font-semibold tabular-nums text-[#1E3A8A] sm:text-sm">
+              {formatINR(expense.amount)}
+            </p>
             {onRemove ? (
               <p className="mt-1 text-[10px] text-[#9CA3AF]">Swipe to remove</p>
             ) : null}

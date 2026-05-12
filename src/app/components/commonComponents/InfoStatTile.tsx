@@ -23,9 +23,11 @@ const variantClasses: Record<InfoStatTileVariant, { box: string; label: string }
 export function InfoStatTile({ label, value, variant, className }: InfoStatTileProps) {
   const v = variantClasses[variant];
   return (
-    <div className={cn('rounded-xl px-3 py-2.5 sm:px-4 sm:py-3', v.box, className)}>
-      <p className={cn('mb-0.5 text-xs font-medium sm:text-sm', v.label)}>{label}</p>
-      <p className="text-sm text-[#111827] sm:text-base">{value}</p>
+    <div className={cn('rounded-xl px-2.5 py-2 sm:px-3.5 sm:py-2.5', v.box, className)}>
+      <p className={cn('mb-0 text-[11px] font-medium leading-tight sm:mb-0.5 sm:text-xs md:text-sm', v.label)}>
+        {label}
+      </p>
+      <p className="text-sm font-semibold leading-tight text-[#111827] sm:text-[15px] md:text-base">{value}</p>
     </div>
   );
 }

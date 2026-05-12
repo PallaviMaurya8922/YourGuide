@@ -21,7 +21,7 @@ export function TripsTabBar({
     <LayoutGroup id="trips-tabs">
       <div
         className={cn(
-          'flex w-full gap-1 rounded-2xl border border-gray-100 bg-[#F3F4F6]/80 p-1 shadow-inner',
+          'flex w-full gap-px rounded-md border border-gray-100 bg-[#F3F4F6]/90 p-px shadow-inner sm:rounded-lg',
           className,
         )}
         role="tablist"
@@ -37,18 +37,18 @@ export function TripsTabBar({
               aria-selected={isOn}
               onClick={() => onChange(t.id)}
               className={cn(
-                'relative flex-1 rounded-xl py-2.5 text-center text-sm font-semibold transition-colors',
+                'relative flex min-h-7 flex-1 items-center justify-center rounded-[5px] px-0.5 py-0.5 text-center text-[11px] font-semibold leading-tight transition-colors sm:min-h-8 sm:px-1 sm:py-1 sm:text-[12px]',
                 isOn ? 'text-[#1E3A8A]' : 'text-[#6B7280] hover:text-[#374151]',
               )}
             >
               {isOn ? (
                 <motion.span
                   layoutId="trips-tab-pill"
-                  className="absolute inset-0 rounded-xl bg-white shadow-sm"
-                  transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+                  className="absolute inset-0 rounded-[5px] bg-white shadow-sm sm:rounded-md"
+                  transition={{ type: 'spring', stiffness: 420, damping: 32 }}
                 />
               ) : null}
-              <span className="relative z-10">{t.label}</span>
+              <span className="relative z-10 max-w-full truncate px-0.5">{t.label}</span>
             </button>
           );
         })}

@@ -8,16 +8,16 @@ export function JourneyPathVisualization({ nodes }: { nodes: JourneyNode[] }) {
   const progress = Math.round((visitedCount / nodes.length) * 100);
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-4 flex items-center justify-between gap-2">
-        <p className="text-xs font-medium text-[#6B7280]">Route progress</p>
-        <span className="text-xs font-semibold text-[#1E3A8A]">{progress}%</span>
+    <div className="rounded-xl border border-gray-100 bg-white p-2.5 shadow-sm sm:rounded-2xl sm:p-3">
+      <div className="mb-2 flex items-center justify-between gap-2 sm:mb-3">
+        <p className="text-[11px] font-medium text-[#6B7280] sm:text-xs">Route progress</p>
+        <span className="text-[11px] font-semibold text-[#1E3A8A] sm:text-xs">{progress}%</span>
       </div>
 
-      <div className="relative pb-2">
-        <div className="pointer-events-none absolute left-4 right-4 top-[18px] h-0.5 bg-[#E5E7EB]" />
+      <div className="relative pb-1 sm:pb-2">
+        <div className="pointer-events-none absolute left-3 right-3 top-4 h-0.5 bg-[#E5E7EB] sm:left-4 sm:right-4 sm:top-[18px]" />
         <motion.div
-          className="pointer-events-none absolute left-4 top-[18px] h-0.5 max-w-[calc(100%-2rem)] bg-gradient-to-r from-[#3B82F6] to-[#1E3A8A]"
+          className="pointer-events-none absolute left-3 top-4 h-0.5 max-w-[calc(100%-1.5rem)] bg-gradient-to-r from-[#3B82F6] to-[#1E3A8A] sm:left-4 sm:top-[18px] sm:max-w-[calc(100%-2rem)]"
           initial={{ width: 0 }}
           animate={{
             width:
@@ -28,12 +28,12 @@ export function JourneyPathVisualization({ nodes }: { nodes: JourneyNode[] }) {
           transition={{ type: 'spring', stiffness: 100, damping: 24 }}
         />
 
-        <div className="relative flex gap-0 overflow-x-auto pb-1 pt-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="relative flex gap-0 overflow-x-auto pb-0.5 pt-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:pb-1">
           {nodes.map((node, index) => {
             return (
               <div
                 key={node.id}
-                className="flex min-w-[4.5rem] flex-1 flex-col items-center"
+                className="flex min-w-[3.75rem] flex-1 flex-col items-center sm:min-w-[4.5rem]"
                 style={{ flexBasis: `${100 / nodes.length}%` }}
               >
                 <motion.div
@@ -44,7 +44,7 @@ export function JourneyPathVisualization({ nodes }: { nodes: JourneyNode[] }) {
                 >
                   <div
                     className={cn(
-                      'flex size-9 items-center justify-center rounded-full border-2 shadow-sm',
+                      'flex size-7 items-center justify-center rounded-full border-2 shadow-sm sm:size-8',
                       node.current
                         ? 'border-[#FDBA74] bg-[#F97316] text-white ring-2 ring-[#FED7AA]'
                         : node.visited
@@ -53,22 +53,22 @@ export function JourneyPathVisualization({ nodes }: { nodes: JourneyNode[] }) {
                     )}
                   >
                     {node.visited && !node.current ? (
-                      <Check className="size-4" strokeWidth={2.5} aria-hidden />
+                      <Check className="size-3 sm:size-3.5" strokeWidth={2.5} aria-hidden />
                     ) : (
-                      <MapPin className="size-4" aria-hidden />
+                      <MapPin className="size-3 sm:size-3.5" aria-hidden />
                     )}
                   </div>
                   {node.current ? (
                     <motion.span
                       layoutId="pulse-ring"
-                      className="pointer-events-none absolute top-0 size-9 rounded-full border-2 border-[#F97316] opacity-60"
+                      className="pointer-events-none absolute top-0 size-7 rounded-full border-2 border-[#F97316] opacity-60 sm:size-8"
                       animate={{ scale: [1, 1.35], opacity: [0.5, 0] }}
                       transition={{ duration: 1.6, repeat: Infinity, ease: 'easeOut' }}
                     />
                   ) : null}
                 </motion.div>
                 <p
-                  className="mt-2 line-clamp-2 w-full px-0.5 text-center text-[10px] font-medium leading-tight text-[#374151] sm:text-[11px]"
+                  className="mt-1.5 line-clamp-2 w-full px-0.5 text-center text-[9px] font-medium leading-tight text-[#374151] sm:mt-2 sm:text-[11px]"
                   title={node.name}
                 >
                   {node.name}
@@ -80,7 +80,7 @@ export function JourneyPathVisualization({ nodes }: { nodes: JourneyNode[] }) {
         </div>
       </div>
 
-      <p className="mt-2 text-center text-[10px] text-[#9CA3AF]">
+      <p className="mt-1.5 text-center text-[9px] text-[#9CA3AF] sm:mt-2 sm:text-[10px]">
         Swipe horizontally on small screens to see all stops
       </p>
     </div>
