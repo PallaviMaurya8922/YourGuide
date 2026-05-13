@@ -11,6 +11,7 @@ import PlannerPage from './screens/PlannerPage';
 import TripsPage from './screens/TripsPage';
 import ProfilePage from './screens/ProfilePage';
 import GuideProfilePage from './screens/GuideProfilePage';
+import TripDetailPage from './screens/TripDetailPage';
 import ExpenseSplitPage from './screens/ExpenseSplitPage';
 import { stashPlannerItineraryResume } from './plannerItineraryResume';
 
@@ -19,6 +20,7 @@ type Screen =
   | 'explore'
   | 'planner'
   | 'trips'
+  | 'trip-detail'
   | 'expenses'
   | 'profile'
   | 'guide-profile';
@@ -33,6 +35,8 @@ function headlineFor(screen: Screen) {
       return 'Plan Your Trip';
     case 'trips':
       return 'My Trips';
+    case 'trip-detail':
+      return 'Trip details';
     case 'expenses':
       return 'Split Expenses';
     case 'profile':
@@ -48,6 +52,12 @@ export default function App() {
   const { createTrip, getOrCreateTripForSavedTrip } = useTripExpenses();
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [selectedGuideId, setSelectedGuideId] = useState<string | null>(null);
+  const [selectedSavedTripId, setSelectedSavedTripId] = useState<number | null>(null);
+
+  const goToTripsList = () => {
+    setSelectedSavedTripId(null);
+    setCurrentScreen('trips');
+  };
 
   const navigateToGuideProfile = (guideId: string) => {
     setSelectedGuideId(guideId);
@@ -57,6 +67,26 @@ export default function App() {
   const navigateBack = () => {
     setCurrentScreen('explore');
   };
+
+  const openSavedTripSplit = (trip: { id: number; city: string; dates: string; places: number }) => {
+    getOrCreateTripForSavedTrip(trip.id, {
+      city: trip.city,
+      dates: trip.dates,
+      places: trip.places,
+    });
+    setCurrentScreen('expenses');
+  };
+
+  const tripsListScreen = (
+    <TripsPage
+      onPlanTrip={() => setCurrentScreen('planner')}
+      onViewTripDetails={(trip) => {
+        setSelectedSavedTripId(trip.id);
+        setCurrentScreen('trip-detail');
+      }}
+      onOpenTripExpenses={openSavedTripSplit}
+    />
+  );
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -74,18 +104,17 @@ export default function App() {
           />
         );
       case 'trips':
-        return (
-          <TripsPage
-            onPlanTrip={() => setCurrentScreen('planner')}
-            onOpenTripExpenses={(trip) => {
-              getOrCreateTripForSavedTrip(trip.id, {
-                city: trip.city,
-                dates: trip.dates,
-                places: trip.places,
-              });
-              setCurrentScreen('expenses');
-            }}
+        return tripsListScreen;
+      case 'trip-detail':
+        return selectedSavedTripId != null ? (
+          <TripDetailPage
+            tripId={selectedSavedTripId}
+            onBack={goToTripsList}
+            onOpenPlanner={() => setCurrentScreen('planner')}
+            onOpenSplit={openSavedTripSplit}
           />
+        ) : (
+          tripsListScreen
         );
       case 'expenses':
         return (
@@ -145,8 +174,8 @@ export default function App() {
             id: 'trips',
             label: 'Trips',
             icon: MapPin,
-            active: currentScreen === 'trips',
-            onClick: () => setCurrentScreen('trips'),
+            active: currentScreen === 'trips' || currentScreen === 'trip-detail',
+            onClick: goToTripsList,
           },
           {
             id: 'expenses',
@@ -168,7 +197,7 @@ export default function App() {
         className={cn(
           'flex-1 overflow-y-auto overflow-x-hidden',
           'lg:pt-14',
-          currentScreen === 'guide-profile'
+          currentScreen === 'guide-profile' || currentScreen === 'trip-detail'
             ? 'pb-2'
             : 'pb-[calc(3.5rem+env(safe-area-inset-bottom))] sm:pb-[calc(3.625rem+env(safe-area-inset-bottom))] md:pb-[calc(4rem+env(safe-area-inset-bottom))]',
         )}
@@ -176,7 +205,7 @@ export default function App() {
         {renderScreen()}
       </div>
 
-      {currentScreen !== 'guide-profile' && (
+      {currentScreen !== 'guide-profile' && currentScreen !== 'trip-detail' && (
         <MobileTabBar
           className={SHELL_MAX_WIDTH_CLASS}
           items={[
@@ -205,8 +234,8 @@ export default function App() {
               id: 'trips',
               label: 'Trips',
               icon: MapPin,
-              active: currentScreen === 'trips',
-              onClick: () => setCurrentScreen('trips'),
+              active: currentScreen === 'trips' || currentScreen === 'trip-detail',
+              onClick: goToTripsList,
             },
             {
               id: 'expenses',

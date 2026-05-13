@@ -1,17 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import {
-  Bell,
-  Calendar,
-  ChevronDown,
-  MapPin,
-  ReceiptIndianRupee,
-  Route,
-  Share2,
-  Sparkles,
-  Users,
-} from 'lucide-react';
-import { useEffect, useId, useRef, useState } from 'react';
-import { toast } from 'sonner';
+import { motion } from 'framer-motion';
+import { Calendar, ReceiptIndianRupee, Route, Users } from 'lucide-react';
 import type { SavedTripOpenPayload } from '../types';
 import type { SavedTripMock, TripStatus } from '../data/tripsMock';
 import { useSavedTripExpenseHint } from '../hooks/useSavedTripExpenseHint';
@@ -32,15 +20,14 @@ export function SavedTripCard({
   trip,
   expenseFallbackLabel,
   onOpenTripExpenses,
+  onViewDetails,
 }: {
   trip: SavedTripMock;
   expenseFallbackLabel: string;
   onOpenTripExpenses?: (trip: SavedTripOpenPayload) => void;
+  onViewDetails?: (trip: SavedTripOpenPayload) => void;
 }) {
-  const [expanded, setExpanded] = useState(false);
-  const detailsRef = useRef<HTMLDivElement>(null);
   const expenseHint = useSavedTripExpenseHint(trip.id, expenseFallbackLabel);
-  const regionId = useId();
 
   const payload: SavedTripOpenPayload = {
     id: trip.id,
@@ -48,14 +35,6 @@ export function SavedTripCard({
     dates: trip.dates,
     places: trip.places,
   };
-
-  useEffect(() => {
-    if (!expanded) return;
-    const t = window.requestAnimationFrame(() => {
-      detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-    return () => window.cancelAnimationFrame(t);
-  }, [expanded]);
 
   return (
     <motion.article
@@ -144,18 +123,15 @@ export function SavedTripCard({
       </div>
 
       <div className="flex flex-row gap-1.5 border-t border-gray-100 p-2.5 sm:gap-2 sm:p-3">
-        <button
-          type="button"
-          aria-expanded={expanded}
-          aria-controls={regionId}
-          onClick={() => setExpanded((v) => !v)}
-          className="inline-flex min-h-9 min-w-0 flex-1 items-center justify-center gap-1 rounded-full bg-[#1E3A8A] px-2 text-[11px] font-semibold text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-h-10 sm:gap-1.5 sm:px-2.5 sm:text-xs"
-        >
-          <span className="truncate">{expanded ? 'Hide details' : 'View trip'}</span>
-          <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronDown className="size-3.5 shrink-0 opacity-90 sm:size-4" aria-hidden />
-          </motion.span>
-        </button>
+        {onViewDetails ? (
+          <button
+            type="button"
+            onClick={() => onViewDetails(payload)}
+            className="inline-flex min-h-9 min-w-0 flex-1 items-center justify-center gap-1 rounded-full bg-[#1E3A8A] px-2 text-[11px] font-semibold text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-h-10 sm:gap-1.5 sm:px-2.5 sm:text-xs"
+          >
+            <span className="truncate">View details</span>
+          </button>
+        ) : null}
         {onOpenTripExpenses ? (
           <button
             type="button"
@@ -167,74 +143,6 @@ export function SavedTripCard({
           </button>
         ) : null}
       </div>
-
-      <AnimatePresence initial={false}>
-        {expanded ? (
-          <motion.div
-            ref={detailsRef}
-            id={regionId}
-            role="region"
-            aria-label="Trip details"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-            className="overflow-hidden border-t border-gray-100 bg-[#FAFBFC]"
-          >
-            <div className="space-y-2 p-2.5 sm:space-y-2.5 sm:p-3">
-              {trip.nextUp ? (
-                <div className="rounded-lg border border-[#BFDBFE]/70 bg-white px-2.5 py-2 shadow-sm sm:rounded-xl sm:px-3 sm:py-2.5">
-                  <p className="text-[9px] font-semibold uppercase tracking-wide text-[#1E3A8A]">Next up</p>
-                  <p className="mt-0.5 text-xs font-medium leading-snug text-[#111827] sm:text-[13px]">{trip.nextUp}</p>
-                </div>
-              ) : null}
-
-              <div className="flex gap-2 rounded-lg bg-white p-2 shadow-sm ring-1 ring-gray-100 sm:rounded-xl sm:p-2.5">
-                <Sparkles className="mt-0.5 size-3.5 shrink-0 text-[#3B82F6] sm:size-4" aria-hidden />
-                <p className="text-[11px] leading-relaxed text-[#4B5563] sm:text-xs">{trip.insight}</p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => toast.message('Share trip', { description: `Link for ${trip.city} will be available soon.` })}
-                  className="flex min-h-9 flex-col items-center justify-center gap-0.5 rounded-lg border border-gray-100 bg-white px-1 py-1.5 text-[10px] font-semibold text-[#374151] transition-colors hover:bg-gray-50 active:bg-gray-100 sm:min-h-10 sm:text-[11px]"
-                >
-                  <Share2 className="size-3.5 text-[#6B7280]" aria-hidden />
-                  Share
-                </button>
-                <button
-                  type="button"
-                  onClick={() =>
-                    toast.message('Map', { description: `Opening ${trip.city} route on the map is coming soon.` })
-                  }
-                  className="flex min-h-9 flex-col items-center justify-center gap-0.5 rounded-lg border border-gray-100 bg-white px-1 py-1.5 text-[10px] font-semibold text-[#374151] transition-colors hover:bg-gray-50 active:bg-gray-100 sm:min-h-10 sm:text-[11px]"
-                >
-                  <MapPin className="size-3.5 text-[#6B7280]" aria-hidden />
-                  Map
-                </button>
-                <button
-                  type="button"
-                  onClick={() =>
-                    toast.message('Reminder', { description: `We’ll nudge you before key stops in ${trip.city}.` })
-                  }
-                  className="flex min-h-9 flex-col items-center justify-center gap-0.5 rounded-lg border border-gray-100 bg-white px-1 py-1.5 text-[10px] font-semibold text-[#374151] transition-colors hover:bg-gray-50 active:bg-gray-100 sm:min-h-10 sm:text-[11px]"
-                >
-                  <Bell className="size-3.5 text-[#6B7280]" aria-hidden />
-                  Remind
-                </button>
-              </div>
-
-              <div className="flex flex-wrap gap-1.5 text-[11px] text-[#6B7280] sm:text-xs">
-                <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 ring-1 ring-gray-100">
-                  <MapPin className="size-3 shrink-0" aria-hidden />
-                  {trip.city} route saved
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
     </motion.article>
   );
 }

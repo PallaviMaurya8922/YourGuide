@@ -11,6 +11,7 @@ import { useLayoutEffect, useState } from 'react';
 import type { CreateTripInput } from '../context/TripExpensesContext';
 import { PLANNER_ITINERARY_RESUME_KEY } from '../plannerItineraryResume';
 import { ScreenHero } from '../components/commonComponents';
+import { cn } from '../components/ui/utils';
 import { PAGE_PAD_X } from '../shellLayout';
 
 type BudgetId = 'budget' | 'moderate' | 'luxury';
@@ -142,6 +143,8 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
     ? BUDGET_OPTIONS.find((b) => b.id === selectedBudget)?.label ?? ''
     : '';
 
+  const canOpenSplitFromPlanner = Boolean(onNavigateToSplit && selectedBudget);
+
   const displayCity = selectedCity || itinerary.city;
   const displayDays = Number.parseInt(selectedDays, 10);
   const daysLabel = Number.isFinite(displayDays) && displayDays > 0 ? displayDays : itinerary.days;
@@ -178,23 +181,29 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
         </header>
 
         <div className={`relative z-10 -mt-3 space-y-3 sm:-mt-4 sm:space-y-4 ${PAGE_PAD_X}`}>
-          <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:gap-2">
+          <div
+            className={cn(
+              'grid w-full gap-2',
+              canOpenSplitFromPlanner ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-2 sm:grid-cols-3',
+            )}
+          >
             <button
               type="button"
-              className="min-h-10 flex-1 rounded-full border border-[#3B82F6] bg-white px-3 py-2 text-[13px] font-semibold text-[#1E3A8A] shadow-sm transition-colors hover:bg-[#EFF6FF] sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
+              className="inline-flex min-h-[2.5rem] w-full min-w-0 items-center justify-center rounded-full border border-[#3B82F6] bg-white px-2 py-2 text-[11px] font-semibold leading-tight text-[#1E3A8A] shadow-sm transition-colors hover:bg-[#EFF6FF] sm:min-h-0 sm:px-3 sm:py-2 sm:text-sm"
             >
               Optimize route
             </button>
             <button
               type="button"
-              className="min-h-10 flex-1 rounded-full border border-gray-200 bg-white px-3 py-2 text-[13px] font-medium text-[#374151] shadow-sm transition-colors hover:bg-gray-50 sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
+              className="inline-flex min-h-[2.5rem] w-full min-w-0 items-center justify-center rounded-full border border-gray-200 bg-white px-2 py-2 text-[11px] font-medium leading-tight text-[#374151] shadow-sm transition-colors hover:bg-gray-50 sm:min-h-0 sm:px-3 sm:py-2 sm:text-sm"
             >
               Edit plan
             </button>
-            {onNavigateToSplit && selectedBudget ? (
+            {canOpenSplitFromPlanner ? (
               <button
                 type="button"
-                onClick={() =>
+                onClick={() => {
+                  if (!onNavigateToSplit || !selectedBudget) return;
                   onNavigateToSplit({
                     name: `${displayCity} · ${daysLabel}-day plan`,
                     subtitle: `${itinerary.totalPlaces} stops · add friends on Split`,
@@ -204,17 +213,20 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
                       interests: [...selectedInterests],
                       budget: selectedBudget,
                     },
-                  })
-                }
-                className="inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-white/40 bg-white/15 px-3 py-2 text-[13px] font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/25 sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
+                  });
+                }}
+                className="inline-flex min-h-[2.5rem] w-full min-w-0 items-center justify-center gap-1 rounded-full border border-[#3B82F6]/30 bg-[#EFF6FF] px-2 py-2 text-[11px] font-semibold leading-tight text-[#1E3A8A] shadow-sm transition-colors hover:bg-[#DBEAFE] sm:min-h-0 sm:gap-1.5 sm:px-3 sm:py-2 sm:text-sm"
               >
-                <ReceiptIndianRupee className="size-4 shrink-0" aria-hidden />
-                Split expenses
+                <ReceiptIndianRupee className="size-3.5 shrink-0 sm:size-4" aria-hidden />
+                <span className="truncate">Split expenses</span>
               </button>
             ) : null}
             <button
               type="button"
-              className="min-h-10 flex-1 rounded-full bg-[#1E3A8A] px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-h-[44px] sm:min-w-0 sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
+              className={cn(
+                'inline-flex min-h-[2.5rem] w-full min-w-0 items-center justify-center rounded-full bg-[#1E3A8A] px-2 py-2 text-[11px] font-semibold leading-tight text-white shadow-sm transition-colors hover:bg-[#1c3578] sm:min-h-0 sm:px-4 sm:py-2 sm:text-sm',
+                !canOpenSplitFromPlanner && 'col-span-2 sm:col-span-1',
+              )}
             >
               Save trip
             </button>

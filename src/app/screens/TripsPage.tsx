@@ -21,10 +21,11 @@ export type SavedTripCard = SavedTripOpenPayload;
 
 export type TripsPageProps = {
   onOpenTripExpenses?: (trip: SavedTripOpenPayload) => void;
+  onViewTripDetails?: (trip: SavedTripOpenPayload) => void;
   onPlanTrip?: () => void;
 };
 
-export default function TripsPage({ onOpenTripExpenses, onPlanTrip }: TripsPageProps) {
+export default function TripsPage({ onOpenTripExpenses, onViewTripDetails, onPlanTrip }: TripsPageProps) {
   const [activeTab, setActiveTab] = useState<'graph' | 'saved'>('graph');
   const [selectedNode, setSelectedNode] = useState<number | null>(null);
   const [savedLoading, setSavedLoading] = useState(true);
@@ -134,6 +135,7 @@ export default function TripsPage({ onOpenTripExpenses, onPlanTrip }: TripsPageP
                     trip={trip}
                     expenseFallbackLabel={trip.expensePreviewLabel}
                     onOpenTripExpenses={onOpenTripExpenses}
+                    onViewDetails={onViewTripDetails}
                   />
                 ))}
               </div>
