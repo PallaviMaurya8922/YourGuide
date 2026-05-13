@@ -22,23 +22,25 @@ export function MobileTabBar({ items, className }: MobileTabBarProps) {
         className,
       )}
     >
-      <div className="flex items-stretch justify-between gap-0.5 sm:px-1 md:gap-1 md:px-2 md:pt-1.5 lg:justify-center lg:gap-2 lg:px-1 lg:pt-0 xl:gap-3">
+      <div className="flex items-stretch justify-between gap-0.5 px-0.5 sm:px-1 md:gap-1 md:px-2 md:pt-1.5 lg:justify-center lg:gap-2 lg:px-1 lg:pt-0 xl:gap-3">
         {items.map(({ id, label, icon: Icon, active, onClick }) => (
           <button
             key={id}
             type="button"
             onClick={onClick}
             className={cn(
-              'flex min-h-[42px] min-w-0 flex-1 flex-col items-center justify-center gap-0 rounded-md py-0.5 transition-colors active:bg-gray-50 sm:min-h-[44px] sm:gap-0.5 sm:py-1 md:min-h-[52px] md:gap-1 md:py-1.5',
-              active ? 'text-[#1E3A8A]' : 'text-[#6B7280]',
+              'flex min-h-[44px] min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl py-1 transition-colors sm:min-h-[46px]',
+              active
+                ? 'bg-[#EFF6FF] font-semibold text-[#1E3A8A] shadow-sm shadow-blue-900/5 ring-1 ring-[#BFDBFE]/80'
+                : 'font-medium text-[#6B7280] active:bg-gray-50',
             )}
           >
             <Icon
-              className="size-[1.125rem] shrink-0 md:size-5"
-              strokeWidth={active ? 2.25 : 2}
+              className="size-[17px] shrink-0 sm:size-[18px] md:size-5"
+              strokeWidth={active ? 2.35 : 2}
               aria-hidden
             />
-            <span className="max-w-full truncate text-[10px] font-medium leading-none sm:text-[11px] md:text-xs">
+            <span className="max-w-full truncate text-[9px] leading-tight text-current sm:text-[10px] md:text-[11px]">
               {label}
             </span>
           </button>

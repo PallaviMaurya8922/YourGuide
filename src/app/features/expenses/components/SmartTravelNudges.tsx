@@ -3,7 +3,6 @@ import { Sparkles } from 'lucide-react';
 import type { ExpenseTrip } from '../../../context/TripExpensesContext';
 import type { ExpenseCategory } from '../../../types/tripExpense';
 import { getSmartNudgesForTrip } from '../data/smartNudges';
-import { cn } from '../../../components/ui/utils';
 
 export function SmartTravelNudges({
   trip,
@@ -48,9 +47,7 @@ export function SmartTravelNudges({
                     amount: n.suggestedAmount,
                   })
                 }
-                className={cn(
-                  'min-h-8 rounded-full bg-[#1E3A8A] px-3 text-[11px] font-semibold text-white shadow-sm sm:min-h-9 sm:px-4 sm:text-xs',
-                )}
+                className="rounded-full bg-[#1E3A8A] px-2.5 py-1 text-[11px] font-semibold leading-tight text-white shadow-sm sm:px-3 sm:py-1.5 sm:text-xs"
               >
                 Split this expense
               </button>
@@ -64,7 +61,7 @@ export function SmartTravelNudges({
                       amount: n.suggestedAmount!,
                     })
                   }
-                  className="min-h-8 rounded-full border border-gray-200 bg-white px-3 text-[11px] font-semibold text-[#374151] sm:min-h-9 sm:px-4 sm:text-xs"
+                  className="rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[11px] font-semibold leading-tight text-[#374151] sm:px-3 sm:py-1.5 sm:text-xs"
                 >
                   Add pending split
                 </button>

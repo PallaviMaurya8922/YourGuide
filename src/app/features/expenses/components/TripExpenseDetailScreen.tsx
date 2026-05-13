@@ -57,15 +57,15 @@ export function TripExpenseDetailScreen({
 
   return (
     <div className="min-h-full bg-[#F9FAFB] pb-28 sm:pb-32">
-      <header className="sticky top-0 z-20 rounded-b-2xl bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-3 pb-3 pt-[max(0.375rem,env(safe-area-inset-top))] text-white shadow-sm sm:rounded-b-3xl sm:px-4 sm:pb-3.5 md:px-5 md:pb-4">
-        <div className="flex items-center gap-2 sm:gap-3">
+      <header className="sticky top-0 z-20 rounded-b-2xl bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] px-3 pb-3.5 pt-[max(0.5rem,env(safe-area-inset-top))] text-white shadow-sm sm:rounded-b-3xl sm:px-4 sm:pb-4 md:px-5 md:pb-4">
+        <div className="flex items-center gap-2 sm:gap-2.5">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-colors hover:bg-white/25 sm:size-10"
+            className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-colors hover:bg-white/25 sm:size-9"
             aria-label="Back to overview"
           >
-            <ArrowLeft className="size-5" aria-hidden />
+            <ArrowLeft className="size-4" aria-hidden strokeWidth={2.25} />
           </button>
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-base font-semibold tracking-tight sm:text-lg md:text-xl">{trip.name}</h1>

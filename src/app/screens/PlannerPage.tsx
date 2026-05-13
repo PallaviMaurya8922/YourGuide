@@ -158,9 +158,9 @@ export default function PlannerPage({ onNavigateToSplit }: PlannerPageProps) {
             <ArrowLeft className="size-4" aria-hidden />
             Edit trip
           </button>
-          <div className="flex items-start gap-2.5 sm:gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm sm:size-12 sm:rounded-2xl md:size-14">
-              <Sparkles className="size-5 sm:size-6 md:size-7" aria-hidden />
+          <div className="flex items-start gap-2 sm:gap-2.5">
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm sm:size-9 sm:rounded-xl md:size-10 md:rounded-xl">
+              <Sparkles className="size-4 sm:size-[18px] md:size-5" aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
               <h1 className="text-lg font-semibold tracking-tight sm:text-xl md:text-2xl">Your itinerary</h1>

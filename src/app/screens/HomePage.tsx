@@ -1,17 +1,28 @@
-import { ArrowRight, Calendar, Headphones, MapPin, TrendingUp, Users } from 'lucide-react';
-import {
-  GuideRowCard,
-  PillSearchInput,
-  PromoCalloutCard,
-  ScreenHero,
-  SectionHeaderRow,
-} from '../components/commonComponents';
+import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, Headphones, MapPin, Users } from 'lucide-react';
 import { PAGE_PAD_X } from '../shellLayout';
+import {
+  CityCard,
+  FeaturedGuideBanner,
+  HomeHeader,
+  HomeSearchBar,
+  HomeSectionHeader,
+  QuickActionCard,
+  RecommendedGuideCard,
+  TrendingPlaceRow,
+} from '../features/home/components';
+import { HOME_STACK } from '../features/home/homeTokens';
 
 interface HomePageProps {
   onNavigate: (screen: 'home' | 'explore' | 'planner' | 'trips' | 'expenses' | 'profile') => void;
   onGuideClick: (guideId: string) => void;
 }
+
+const sectionMotion = {
+  initial: { opacity: 0, y: 6 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] },
+};
 
 export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
   const popularCities = [
@@ -61,162 +72,125 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
   ];
 
   return (
-    <div className="min-h-full bg-white">
-      <ScreenHero
-        className="pt-7 pb-4 sm:pb-6 sm:pt-10"
-        title="Hello, Jitendra 👋"
-        subtitle="Where do you want to explore today?"
-        titleSpacing="default"
-        hideTitleFromLg
+    <div className="min-h-full bg-[#FAFAFA]">
+      <HomeHeader title="Hello, Jitendra 👋" subtitle="Where do you want to explore today?">
+        <HomeSearchBar placeholder="Search cities, guides, or places…" aria-label="Search cities, guides, or places" />
+      </HomeHeader>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+        className={`${PAGE_PAD_X} pb-6 pt-3 sm:pb-8 sm:pt-3.5 ${HOME_STACK}`}
       >
-        <PillSearchInput
-          placeholder="Search cities, guides, or places..."
-          aria-label="Search cities, guides, or places"
-          wrapperClassName="shadow-lg"
-        />
-      </ScreenHero>
-
-      <div className={`${PAGE_PAD_X} py-4 sm:py-5`}>
-        <SectionHeaderRow
-          title="Popular Cities"
-          action={
-            <button type="button" className="text-sm text-[#3B82F6]">
-              See All
-            </button>
-          }
-        />
-
-        <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1.5 sm:gap-2.5 sm:pb-2 md:grid md:grid-cols-4 md:gap-3 md:overflow-x-visible md:pb-0">
-          {popularCities.map((city) => (
-            <div key={city.name} className="w-[7.25rem] shrink-0 sm:w-28 md:w-auto md:min-w-0">
-              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-[#F9FAFB] to-white p-3 text-center sm:rounded-2xl sm:p-3.5 md:p-4">
-                <div className="mb-1 text-3xl sm:mb-1.5 sm:text-4xl md:text-5xl">{city.image}</div>
-                <h3 className="mb-0.5 text-xs font-medium text-[#111827] sm:text-sm md:text-base">{city.name}</h3>
-                <p className="text-xs text-[#6B7280]">{city.trips} trips</p>
+        <motion.section {...sectionMotion} transition={{ ...sectionMotion.transition, delay: 0.02 }}>
+          <HomeSectionHeader
+            title="Popular cities"
+            action={
+              <button
+                type="button"
+                className="text-[12px] font-semibold text-[#2563EB] transition-colors hover:text-[#1D4ED8]"
+              >
+                See all
+              </button>
+            }
+          />
+          <div className="no-scrollbar -mx-0.5 flex gap-2 overflow-x-auto px-0.5 pb-0.5 sm:gap-2 md:grid md:grid-cols-4 md:gap-2 md:overflow-x-visible md:pb-0">
+            {popularCities.map((city) => (
+              <div key={city.name} className="w-[6.5rem] shrink-0 sm:w-[6.75rem] md:w-auto md:min-w-0">
+                <CityCard name={city.name} emoji={city.image} tripsLabel={`${city.trips} trips`} />
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
+            ))}
+          </div>
+        </motion.section>
 
-      <div className={`mb-4 sm:mb-5 ${PAGE_PAD_X}`}>
-        <PromoCalloutCard
-          title="Book a Local Guide"
-          description="Explore like a local with verified experts"
-          actionLabel="Find Guides"
-          onAction={() => onNavigate('explore')}
-          decoration={<Users className="size-10 opacity-90 sm:size-12 md:size-14" aria-hidden />}
-        />
-      </div>
+        <motion.section {...sectionMotion} transition={{ ...sectionMotion.transition, delay: 0.05 }}>
+          <FeaturedGuideBanner
+            title="Book a local guide"
+            description="Explore like a local with verified experts."
+            actionLabel="Find guides"
+            onAction={() => onNavigate('explore')}
+          />
+        </motion.section>
 
-      <div className={`mb-4 sm:mb-5 ${PAGE_PAD_X}`}>
-        <h2 className="mb-3 text-base font-semibold text-[#111827] sm:text-lg md:text-xl">Quick Actions</h2>
-
-        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 lg:grid-cols-4 lg:gap-3">
-          <button
-            type="button"
-            onClick={() => onNavigate('explore')}
-            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
-          >
-            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#3B82F6]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
-              <Users className="size-[18px] text-[#3B82F6] sm:size-5 md:size-[22px]" />
-            </div>
-            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Book Guide</h3>
-            <p className="text-[11px] text-[#6B7280] sm:text-xs">Find local experts</p>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => onNavigate('planner')}
-            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
-          >
-            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#10B981]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
-              <Calendar className="size-[18px] text-[#10B981] sm:size-5 md:size-[22px]" />
-            </div>
-            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Plan Trip</h3>
-            <p className="text-[11px] text-[#6B7280] sm:text-xs">Smart itineraries</p>
-          </button>
-
-          <button
-            type="button"
-            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
-          >
-            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#F97316]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
-              <MapPin className="size-[18px] text-[#F97316] sm:size-5 md:size-[22px]" />
-            </div>
-            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Explore Nearby</h3>
-            <p className="text-[11px] text-[#6B7280] sm:text-xs">Discover places</p>
-          </button>
-
-          <button
-            type="button"
-            className="flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 opacity-50 transition-all hover:border-[#3B82F6] sm:rounded-2xl sm:p-3.5 md:p-4"
-          >
-            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-[#6B7280]/10 sm:mb-2.5 sm:size-10 sm:rounded-xl md:size-11">
-              <Headphones className="size-[18px] text-[#6B7280] sm:size-5 md:size-[22px]" />
-            </div>
-            <h3 className="mb-0.5 text-xs font-semibold text-[#111827] sm:text-sm md:text-base">Audio Guide</h3>
-            <p className="text-[11px] text-[#6B7280] sm:text-xs">Coming soon</p>
-          </button>
-        </div>
-      </div>
-
-      <div className={`mb-4 sm:mb-5 ${PAGE_PAD_X}`}>
-        <SectionHeaderRow
-          title="Recommended Guides"
-          action={
-            <button
-              type="button"
+        <motion.section {...sectionMotion} transition={{ ...sectionMotion.transition, delay: 0.08 }}>
+          <HomeSectionHeader title="Quick actions" />
+          <div className="grid grid-cols-2 items-stretch gap-2 sm:gap-2.5 lg:grid-cols-4">
+            <QuickActionCard
+              icon={Users}
+              title="Book guide"
+              subtitle="Find local experts"
+              iconBgClass="bg-[#3B82F6]/12 ring-1 ring-[#3B82F6]/15"
+              iconClass="text-[#2563EB]"
               onClick={() => onNavigate('explore')}
-              className="flex items-center gap-1 text-sm text-[#3B82F6]"
-            >
-              See All <ArrowRight className="h-4 w-4" aria-hidden />
-            </button>
-          }
-        />
-
-        <div className="space-y-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0 lg:grid-cols-3">
-          {recommendedGuides.map((guide) => (
-            <GuideRowCard
-              key={guide.id}
-              variant="rich"
-              name={guide.name}
-              image={guide.image}
-              rating={guide.rating}
-              expertise={guide.expertise}
-              trips={guide.trips}
-              languages={guide.languages}
-              pricePerHour={guide.price}
-              onClick={() => onGuideClick(guide.id)}
             />
-          ))}
-        </div>
-      </div>
+            <QuickActionCard
+              icon={Calendar}
+              title="Plan trip"
+              subtitle="Smart itineraries"
+              iconBgClass="bg-emerald-500/10 ring-1 ring-emerald-500/15"
+              iconClass="text-emerald-600"
+              onClick={() => onNavigate('planner')}
+            />
+            <QuickActionCard
+              icon={MapPin}
+              title="Explore nearby"
+              subtitle="Discover places"
+              iconBgClass="bg-orange-500/10 ring-1 ring-orange-500/15"
+              iconClass="text-orange-600"
+              onClick={() => onNavigate('explore')}
+            />
+            <QuickActionCard
+              icon={Headphones}
+              title="Audio guide"
+              subtitle="Coming soon"
+              iconBgClass="bg-gray-100 ring-1 ring-gray-200/80"
+              iconClass="text-[#6B7280]"
+              disabled
+            />
+          </div>
+        </motion.section>
 
-      <div className={`${PAGE_PAD_X} pb-6 sm:pb-8`}>
-        <SectionHeaderRow title="Trending Places" />
+        <motion.section {...sectionMotion} transition={{ ...sectionMotion.transition, delay: 0.1 }}>
+          <HomeSectionHeader
+            title="Recommended guides"
+            action={
+              <button
+                type="button"
+                onClick={() => onNavigate('explore')}
+                className="inline-flex items-center gap-0.5 text-[12px] font-semibold text-[#2563EB] transition-colors hover:text-[#1D4ED8]"
+              >
+                See all
+                <ArrowRight className="size-3.5" aria-hidden />
+              </button>
+            }
+          />
+          <div className="space-y-2 md:grid md:grid-cols-2 md:gap-2 md:space-y-0 lg:grid-cols-3 lg:gap-2.5">
+            {recommendedGuides.map((guide) => (
+              <RecommendedGuideCard
+                key={guide.id}
+                name={guide.name}
+                image={guide.image}
+                rating={guide.rating}
+                expertise={guide.expertise}
+                trips={guide.trips}
+                languages={guide.languages}
+                pricePerHour={guide.price}
+                onClick={() => onGuideClick(guide.id)}
+              />
+            ))}
+          </div>
+        </motion.section>
 
-        <div className="space-y-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0 lg:grid-cols-3">
-          {trendingPlaces.map((place) => (
-            <div
-              key={place.name}
-              className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-3 sm:rounded-2xl sm:p-3.5"
-            >
-              <div className="min-w-0 pr-2">
-                <h3 className="mb-0.5 truncate text-xs font-semibold text-[#111827] sm:text-sm">{place.name}</h3>
-                <div className="flex items-center gap-2 text-xs text-[#6B7280]">
-                  <MapPin className="h-3 w-3" aria-hidden />
-                  <span>{place.city}</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 text-[#10B981]">
-                <TrendingUp className="h-4 w-4" aria-hidden />
-                <span className="text-xs">{place.visitors}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+        <motion.section {...sectionMotion} transition={{ ...sectionMotion.transition, delay: 0.12 }}>
+          <HomeSectionHeader title="Trending places" />
+          <div className="space-y-2 md:grid md:grid-cols-2 md:gap-2 md:space-y-0 lg:grid-cols-3 lg:gap-2.5">
+            {trendingPlaces.map((place) => (
+              <TrendingPlaceRow key={place.name} name={place.name} city={place.city} visitors={place.visitors} />
+            ))}
+          </div>
+        </motion.section>
+      </motion.div>
     </div>
   );
 }

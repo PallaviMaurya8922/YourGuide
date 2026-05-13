@@ -2,11 +2,13 @@ import { cn } from '../ui/utils';
 
 export type GuideAvatarProps = {
   image: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
   className?: string;
 };
 
 const sizeClasses = {
+  xxs: 'size-8 text-base leading-none rounded-md',
+  xs: 'size-10 text-lg rounded-lg',
   sm: 'size-12 text-2xl rounded-xl',
   md: 'size-16 text-3xl rounded-2xl',
   lg: 'size-20 text-4xl rounded-2xl',

@@ -102,35 +102,35 @@ export function AddExpenseBottomSheet({
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="max-h-[90vh] border-0 bg-white px-0 [&>div:first-child]:bg-gray-300">
-        <DrawerHeader className="border-b border-gray-100 px-5 pb-3 text-left">
-          <DrawerTitle className="text-lg font-semibold text-[#111827]">Add expense</DrawerTitle>
-          <p className="text-xs text-[#6B7280]">Keep it simple — we’ll handle the math.</p>
+        <DrawerHeader className="gap-1 border-b border-gray-100 p-0 px-4 pb-2 pt-2.5 text-left">
+          <DrawerTitle className="text-base font-semibold text-[#111827]">Add expense</DrawerTitle>
+          <p className="text-[11px] leading-snug text-[#6B7280] sm:text-xs">Keep it simple — we’ll handle the math.</p>
         </DrawerHeader>
 
-        <div className="overflow-y-auto px-5 py-4">
+        <div className="overflow-y-auto px-4 py-3">
           <label className="block">
-            <span className="mb-1 block text-xs font-medium text-[#6B7280]">What was it?</span>
+            <span className="mb-0.5 block text-xs font-medium text-[#6B7280]">What was it?</span>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Rooftop dinner"
-              className="min-h-12 w-full rounded-xl border border-gray-200 px-3 text-sm outline-none focus:border-[#3B82F6]"
+              className="box-border w-full rounded-md border border-gray-200 px-2.5 py-1.5 text-[13px] leading-tight outline-none focus:border-[#3B82F6]"
             />
           </label>
 
-          <label className="mt-4 block">
-            <span className="mb-1 block text-xs font-medium text-[#6B7280]">Amount (₹)</span>
+          <label className="mt-3 block">
+            <span className="mb-0.5 block text-xs font-medium text-[#6B7280]">Amount (₹)</span>
             <input
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               inputMode="decimal"
               placeholder="0"
-              className="min-h-12 w-full rounded-xl border border-gray-200 px-3 text-sm outline-none focus:border-[#3B82F6]"
+              className="box-border w-full rounded-md border border-gray-200 px-2.5 py-1.5 text-[13px] leading-tight outline-none focus:border-[#3B82F6]"
             />
           </label>
 
-          <p className="mb-2 mt-5 text-xs font-medium text-[#6B7280]">Category</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="mb-1.5 mt-4 text-xs font-medium text-[#6B7280]">Category</p>
+          <div className="flex flex-wrap gap-1.5">
             {EXPENSE_CATEGORY_ORDER.filter((c) => c !== 'other').map((c) => {
               const Meta = EXPENSE_CATEGORY_META[c];
               const Icon = Meta.icon;
@@ -141,7 +141,7 @@ export function AddExpenseBottomSheet({
                   type="button"
                   onClick={() => setCategory(c)}
                   className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-medium transition-colors',
+                    'inline-flex items-center gap-1 rounded-full border px-2.5 py-1.5 text-xs font-medium leading-tight transition-colors',
                     on
                       ? 'border-[#1E3A8A] bg-[#EFF6FF] text-[#1E3A8A]'
                       : 'border-gray-200 bg-white text-[#6B7280]',
@@ -156,7 +156,7 @@ export function AddExpenseBottomSheet({
               type="button"
               onClick={() => setCategory('other')}
               className={cn(
-                'rounded-full border px-3 py-2 text-xs font-medium transition-colors',
+                'rounded-full border px-2.5 py-1.5 text-xs font-medium leading-tight transition-colors',
                 category === 'other'
                   ? 'border-[#1E3A8A] bg-[#EFF6FF] text-[#1E3A8A]'
                   : 'border-gray-200 bg-white text-[#6B7280]',
@@ -166,12 +166,12 @@ export function AddExpenseBottomSheet({
             </button>
           </div>
 
-          <label className="mt-5 block">
-            <span className="mb-1 block text-xs font-medium text-[#6B7280]">Paid by</span>
+          <label className="mt-4 block">
+            <span className="mb-0.5 block text-xs font-medium text-[#6B7280]">Paid by</span>
             <select
               value={paidById}
               onChange={(e) => setPaidById(e.target.value)}
-              className="min-h-12 w-full rounded-xl border border-gray-200 px-3 text-sm outline-none focus:border-[#3B82F6]"
+              className="box-border w-full rounded-md border border-gray-200 bg-white px-2.5 py-1.5 text-[13px] leading-tight outline-none focus:border-[#3B82F6]"
             >
               {members.map((m) => (
                 <option key={m.id} value={m.id}>
@@ -181,8 +181,8 @@ export function AddExpenseBottomSheet({
             </select>
           </label>
 
-          <p className="mb-2 mt-5 text-xs font-medium text-[#6B7280]">Split between</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="mb-1.5 mt-4 text-xs font-medium text-[#6B7280]">Split between</p>
+          <div className="flex flex-wrap gap-1.5">
             {members.map((m) => {
               const on = participantIds.includes(m.id);
               return (
@@ -191,7 +191,7 @@ export function AddExpenseBottomSheet({
                   type="button"
                   onClick={() => toggleParticipant(m.id)}
                   className={cn(
-                    'rounded-full px-3 py-2 text-xs font-medium transition-colors',
+                    'rounded-full px-2.5 py-1.5 text-xs font-medium leading-tight transition-colors',
                     on
                       ? 'bg-[#1E3A8A] text-white'
                       : 'border border-gray-200 bg-white text-[#6B7280]',
@@ -203,12 +203,12 @@ export function AddExpenseBottomSheet({
             })}
           </div>
 
-          <div className="mt-5 flex rounded-xl border border-gray-200 p-1">
+          <div className="mt-4 flex rounded-lg border border-gray-200 p-0.5">
             <button
               type="button"
               onClick={() => setSplitMode('equal')}
               className={cn(
-                'flex-1 rounded-lg py-2 text-xs font-semibold transition-colors',
+                'flex-1 rounded-md py-1.5 text-xs font-semibold leading-tight transition-colors',
                 splitMode === 'equal' ? 'bg-[#1E3A8A] text-white' : 'text-[#6B7280]',
               )}
             >
@@ -218,7 +218,7 @@ export function AddExpenseBottomSheet({
               type="button"
               onClick={() => setSplitMode('custom')}
               className={cn(
-                'flex-1 rounded-lg py-2 text-xs font-semibold transition-colors',
+                'flex-1 rounded-md py-1.5 text-xs font-semibold leading-tight transition-colors',
                 splitMode === 'custom' ? 'bg-[#1E3A8A] text-white' : 'text-[#6B7280]',
               )}
             >
@@ -227,7 +227,7 @@ export function AddExpenseBottomSheet({
           </div>
 
           {splitMode === 'custom' ? (
-            <div className="mt-3 space-y-2 rounded-xl bg-[#F9FAFB] p-3">
+            <div className="mt-2 space-y-1.5 rounded-lg bg-[#F9FAFB] p-2.5">
               {participantIds.map((id) => {
                 const m = members.find((x) => x.id === id);
                 if (!m) return null;
@@ -241,7 +241,7 @@ export function AddExpenseBottomSheet({
                       }
                       inputMode="decimal"
                       placeholder="₹"
-                      className="min-h-10 flex-1 rounded-lg border border-gray-200 bg-white px-2 text-sm"
+                      className="box-border min-h-0 flex-1 rounded-md border border-gray-200 bg-white px-2 py-1.5 text-[13px] leading-tight"
                     />
                   </div>
                 );
@@ -253,11 +253,11 @@ export function AddExpenseBottomSheet({
             </div>
           ) : null}
 
-          <label className="mt-6 flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-gray-200 bg-[#FAFAFA] px-4 py-4">
-            <ImagePlus className="size-8 shrink-0 text-[#9CA3AF]" aria-hidden />
+          <label className="mt-4 flex cursor-pointer items-center gap-2.5 rounded-lg border border-dashed border-gray-200 bg-[#FAFAFA] px-3 py-2.5">
+            <ImagePlus className="size-6 shrink-0 text-[#9CA3AF]" aria-hidden />
             <div className="min-w-0 text-left">
-              <p className="text-sm font-medium text-[#374151]">Receipt (optional)</p>
-              <p className="text-xs text-[#6B7280]">PNG or JPG — preview only in this demo</p>
+              <p className="text-xs font-medium text-[#374151] sm:text-[13px]">Receipt (optional)</p>
+              <p className="text-[11px] leading-snug text-[#6B7280] sm:text-xs">PNG or JPG — preview only in this demo</p>
             </div>
             <input
               type="file"
@@ -273,25 +273,25 @@ export function AddExpenseBottomSheet({
             />
           </label>
           {receiptPreview ? (
-            <div className="mt-3 overflow-hidden rounded-xl border border-gray-200">
-              <img src={receiptPreview} alt="" className="max-h-40 w-full object-cover" />
+            <div className="mt-2 overflow-hidden rounded-lg border border-gray-200">
+              <img src={receiptPreview} alt="" className="max-h-32 w-full object-cover" />
             </div>
           ) : null}
         </div>
 
-        <DrawerFooter className="border-t border-gray-100 px-5 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <DrawerFooter className="gap-1.5 border-t border-gray-100 p-0 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2.5">
           <button
             type="button"
             disabled={!canSave}
             onClick={handleSave}
-            className="min-h-12 w-full rounded-full bg-[#1E3A8A] text-sm font-semibold text-white shadow-sm transition-opacity disabled:opacity-40"
+            className="w-full rounded-full bg-[#1E3A8A] py-2.5 text-sm font-semibold leading-tight text-white shadow-sm transition-opacity disabled:opacity-40"
           >
             Save expense
           </button>
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="min-h-11 w-full rounded-full border border-gray-200 text-sm font-medium text-[#374151]"
+            className="w-full rounded-full border border-gray-200 py-2.5 text-sm font-medium leading-tight text-[#374151]"
           >
             Cancel
           </button>
