@@ -4,30 +4,6 @@ export type { CircleIconButtonProps } from './CircleIconButton';
 export { GradientPageHeader } from './GradientPageHeader';
 export type { GradientPageHeaderProps } from './GradientPageHeader';
 
-export { ScreenHero } from './ScreenHero';
-export type { ScreenHeroProps } from './ScreenHero';
-
-export { SectionHeaderRow } from './SectionHeaderRow';
-export type { SectionHeaderRowProps } from './SectionHeaderRow';
-
-export { GuideAvatar } from './GuideAvatar';
-export type { GuideAvatarProps } from './GuideAvatar';
-
-export { GuideRowCard } from './GuideRowCard';
-export type { GuideRowCardProps } from './GuideRowCard';
-
-export { GuideExploreCard } from './GuideExploreCard';
-export type { GuideExploreCardGuide, GuideExploreCardProps } from './GuideExploreCard';
-
-export { PromoCalloutCard } from './PromoCalloutCard';
-export type { PromoCalloutCardProps } from './PromoCalloutCard';
-
-export { MobileTabBar } from './MobileTabBar';
-export type { MobileTabBarItem, MobileTabBarProps } from './MobileTabBar';
-
-export { DesktopTopNav } from './DesktopTopNav';
-export type { DesktopTopNavItem, DesktopTopNavProps } from './DesktopTopNav';
-
 export { InfoStatTile } from './InfoStatTile';
 export type { InfoStatTileProps, InfoStatTileVariant } from './InfoStatTile';
 
