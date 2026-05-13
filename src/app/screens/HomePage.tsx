@@ -14,7 +14,9 @@ import {
 import { HOME_STACK } from '../features/home/homeTokens';
 
 interface HomePageProps {
-  onNavigate: (screen: 'home' | 'explore' | 'planner' | 'trips' | 'expenses' | 'profile') => void;
+  onNavigate: (
+    screen: 'home' | 'explore' | 'planner' | 'trips' | 'expenses' | 'profile' | 'audioguide',
+  ) => void;
   onGuideClick: (guideId: string) => void;
 }
 
@@ -143,10 +145,10 @@ export default function HomePage({ onNavigate, onGuideClick }: HomePageProps) {
             <QuickActionCard
               icon={Headphones}
               title="Audio guide"
-              subtitle="Coming soon"
-              iconBgClass="bg-gray-100 ring-1 ring-gray-200/80"
-              iconClass="text-[#6B7280]"
-              disabled
+              subtitle="Tours & photo narration"
+              iconBgClass="bg-violet-500/10 ring-1 ring-violet-500/15"
+              iconClass="text-violet-700"
+              onClick={() => onNavigate('audioguide')}
             />
           </div>
         </motion.section>

@@ -12,6 +12,7 @@ import TripsPage from './screens/TripsPage';
 import ProfilePage from './screens/ProfilePage';
 import GuideProfilePage from './screens/GuideProfilePage';
 import TripDetailPage from './screens/TripDetailPage';
+import AudioGuidePage from './screens/AudioGuidePage';
 import ExpenseSplitPage from './screens/ExpenseSplitPage';
 import { stashPlannerItineraryResume } from './plannerItineraryResume';
 
@@ -23,7 +24,8 @@ type Screen =
   | 'trip-detail'
   | 'expenses'
   | 'profile'
-  | 'guide-profile';
+  | 'guide-profile'
+  | 'audioguide';
 
 function headlineFor(screen: Screen) {
   switch (screen) {
@@ -43,6 +45,8 @@ function headlineFor(screen: Screen) {
       return 'Profile';
     case 'guide-profile':
       return 'Guide Profile';
+    case 'audioguide':
+      return 'Audio guides';
     default:
       return 'Guide Connect';
   }
@@ -127,6 +131,8 @@ export default function App() {
         );
       case 'profile':
         return <ProfilePage />;
+      case 'audioguide':
+        return <AudioGuidePage onExit={() => setCurrentScreen('home')} />;
       case 'guide-profile':
         return <GuideProfilePage guideId={selectedGuideId || ''} onBack={navigateBack} />;
       default:
