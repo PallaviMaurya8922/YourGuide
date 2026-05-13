@@ -27,14 +27,14 @@ export function GuideProfileSummaryCard({ guide, className }: GuideProfileSummar
   return (
     <div
       className={cn(
-        'rounded-2xl border border-gray-100 bg-white p-4 shadow-lg sm:p-6',
+        'rounded-2xl border border-gray-200/60 bg-white/95 p-3 shadow-[0_8px_30px_-12px_rgba(15,23,42,0.1)] ring-1 ring-gray-100/80 sm:p-4',
         className,
       )}
     >
-      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start">
+      <div className="mb-3 flex flex-col gap-3 sm:mb-3.5 sm:flex-row sm:items-start sm:gap-3.5">
         <div
           className={cn(
-            'mx-auto flex size-24 shrink-0 items-center justify-center rounded-2xl border-4 border-white bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] text-5xl shadow-lg sm:mx-0 sm:size-28 sm:text-[3.25rem]',
+            'mx-auto flex size-20 shrink-0 items-center justify-center rounded-xl border-2 border-white bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] text-[2.35rem] shadow-md shadow-blue-900/15 sm:mx-0 sm:size-[5.25rem] sm:rounded-2xl sm:text-[2.65rem]',
           )}
           aria-hidden={typeof guide.image === 'string'}
         >
@@ -42,34 +42,34 @@ export function GuideProfileSummaryCard({ guide, className }: GuideProfileSummar
         </div>
 
         <div className="min-w-0 flex-1 text-center sm:text-left">
-          <div className="mb-1 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-            <h1 className="text-xl font-semibold text-[#111827] sm:text-2xl">{guide.name}</h1>
+          <div className="mb-0.5 flex flex-wrap items-center justify-center gap-1.5 sm:justify-start">
+            <h1 className="text-lg font-semibold leading-tight tracking-tight text-[#111827] sm:text-xl">
+              {guide.name}
+            </h1>
             {guide.verified ? (
-              <Shield className="size-5 shrink-0 text-[#10B981]" aria-label="Verified guide" />
+              <Shield className="size-[1.05rem] shrink-0 text-emerald-500 sm:size-4" strokeWidth={2.25} aria-label="Verified guide" />
             ) : null}
           </div>
 
-          <p className="mb-2 text-sm text-[#6B7280] sm:text-base">{guide.expertise}</p>
+          <p className="mb-1.5 text-[13px] leading-snug text-[#6B7280] sm:text-sm">{guide.expertise}</p>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm sm:justify-start sm:text-base">
-            <div className="flex items-center gap-1">
-              <Star className="size-5 text-[#F97316] fill-[#F97316]" aria-hidden />
-              <span className="font-medium text-[#111827]">{guide.rating}</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 text-[13px] sm:justify-start sm:text-sm">
+            <div className="flex items-center gap-0.5">
+              <Star className="size-3.5 shrink-0 text-[#F97316] fill-[#F97316] sm:size-4" aria-hidden />
+              <span className="font-semibold tabular-nums text-[#111827]">{guide.rating}</span>
             </div>
-            <span className="text-[#6B7280]">({guide.reviews} reviews)</span>
-            <span className="hidden text-[#6B7280] sm:inline" aria-hidden>
-              •
+            <span className="text-[#9CA3AF]">({guide.reviews} reviews)</span>
+            <span className="hidden text-[#D1D5DB] sm:inline" aria-hidden>
+              ·
             </span>
-            <span className="w-full text-center text-[#6B7280] sm:w-auto sm:text-left">
-              {guide.totalTrips} trips
-            </span>
+            <span className="w-full text-center text-[#6B7280] sm:w-auto sm:text-left">{guide.totalTrips} trips</span>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 sm:gap-4">
-        <InfoStatTile variant="success" label="Availability" value={guide.availability} />
-        <InfoStatTile variant="info" label="Response Time" value={guide.responseTime} />
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+        <InfoStatTile variant="success" label="Availability" value={guide.availability} compact />
+        <InfoStatTile variant="info" label="Response Time" value={guide.responseTime} compact />
       </div>
     </div>
   );
